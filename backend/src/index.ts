@@ -1,6 +1,21 @@
-export const sum = (a: number, b: number): number => {
-    return a + b;
+import express from "express";
+import booking from "./bookings/booking.router";
+
+const initilizeApp = () => {
+const app = express()
+
+//middleware
+app.use(express.json());
+
+//route
+booking(app);
+
+app.get('/', (req, res) => {
+  res.send('Hello Express!')
+})
+
+return app;
+
 }
-
-console.log(sum(2,4))
-
+const app = initilizeApp();
+export default app;
