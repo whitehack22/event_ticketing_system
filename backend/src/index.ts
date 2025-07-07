@@ -1,5 +1,9 @@
 import express from "express";
 import booking from "./bookings/booking.router";
+import supportTicket from "./customer_support/support.router";
+import event from "./events/event.router";
+import payment from "./payments/payment.router";
+import venue from "./venues/venue.router";
 
 const initilizeApp = () => {
 const app = express()
@@ -9,6 +13,10 @@ app.use(express.json());
 
 //route
 booking(app);
+supportTicket(app);
+event(app);
+payment(app);
+venue(app)
 
 app.get('/', (req, res) => {
   res.send('Hello Express!')

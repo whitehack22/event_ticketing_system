@@ -31,7 +31,7 @@ async function seed() {
 
     // insert payments
     await db.insert(PaymentsTable).values([
-       { bookingID: 1, amount: "200.00", paymentStatus: "Completed", paymentMethod: "Mpesa", transactionID: "TX123456789" },
+       { bookingID: 1, amount: "200.00", paymentStatus: "Completed", paymentMethod: "Mpesa", transactionID: "TX123456789", userID: 1 },
     ]);
     
     // insert customer support tickets
