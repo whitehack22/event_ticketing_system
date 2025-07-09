@@ -4,6 +4,7 @@ import supportTicket from "./customer_support/support.router";
 import event from "./events/event.router";
 import payment from "./payments/payment.router";
 import venue from "./venues/venue.router";
+import user from "./users/user.router";
 
 const initilizeApp = () => {
 const app = express()
@@ -17,6 +18,7 @@ supportTicket(app);
 event(app);
 payment(app);
 venue(app)
+user(app);
 
 app.get('/', (req, res) => {
   res.send('Hello Express!')

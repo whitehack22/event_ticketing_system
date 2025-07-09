@@ -55,4 +55,13 @@ export const getBookingsById = async (id: number) => {
     return bookings;
 }
 
+// Get bookings by user ID
+export const getBookingsByUserId = async (userID: number) => {
+  const bookings = await db.query.BookingsTable.findMany({
+    where: eq(BookingsTable.userID, userID),
+  });
+  return bookings;
+};
+
+
 

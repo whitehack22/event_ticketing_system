@@ -1,6 +1,7 @@
 import { Express } from "express";
 import { createBookingController, deleteBookingController, getAllBookingsController, 
-    getBookingByIdController, getBookingsByIdController, updateBookingController } from "./booking.controller";
+    getBookingByIdController, getBookingsByIdController, getBookingsByUserIdController, updateBookingController } from "./booking.controller";
+import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
 
 
 
@@ -19,6 +20,7 @@ const booking = (app: Express) => {
 
     //get all bookings
     app.route("/api/bookings").get(
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await getAllBookingsController(req, res)
@@ -39,7 +41,7 @@ const booking = (app: Express) => {
         }
     )
 
-    //update cars
+    //update bookings
     app.route("/api/booking/:id").put(
         async (req, res, next) => {
             try {
@@ -50,7 +52,7 @@ const booking = (app: Express) => {
         }
     )
 
-    //delete car
+    //delete booking
     app.route("/api/booking/:id").delete(
         async (req, res, next) => {
             try {
@@ -61,7 +63,7 @@ const booking = (app: Express) => {
         }
     )
 
-    //get multiple cars by ID
+    //get multiple bookings by ID
     app.route("/api/bookings/:id").get(
         async (req, res, next) => {
             try {
@@ -71,6 +73,18 @@ const booking = (app: Express) => {
             }
         }
     )
+
+    // Get bookings by user ID
+        app.route("/api/bookings/user/:userID").get(
+        userRoleAuth,
+        async (req, res, next) => {
+            try {
+            await getBookingsByUserIdController(req, res);
+            } catch (error) {
+            next(error);
+            }
+        }
+        );
 }
 
 

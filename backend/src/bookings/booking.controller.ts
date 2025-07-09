@@ -125,3 +125,29 @@ export const getBookingsByIdController = async (req: Request, res: Response) => 
     return;
   }
 };
+
+// Get bookings by userID
+export const getBookingsByUserIdController = async (req: Request, res: Response) => {
+  try {
+    const userID = Number(req.params.userID);
+
+    if (isNaN(userID)) {
+      res.status(400).json({ error: "Invalid user ID" });
+      return;
+    }
+
+    const bookings = await bookingService.getBookingsByUserId(userID);
+
+    if (!bookings || bookings.length === 0) {
+      res.status(404).json({ message: "No bookings found for this user." });
+      return;
+    }
+
+    res.status(200).json({ data: bookings });
+    return;
+  } catch (error: any) {
+    console.error("Error fetching bookings by user ID:", error);
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+    return;
+  }
+};

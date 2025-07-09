@@ -72,7 +72,7 @@ export const updateSupportTicketController = async (req: Request, res: Response)
     if (!updated) {
       return res.status(404).json({ message: "Support Ticket not found" });
     }
-    res.status(200).json({ message: "Booking updated successfully", supportTicket: updated });
+    res.status(200).json({ message: "supportTicket updated successfully", supportTicket: updated });
     return;
   } catch (error: any) {
     console.error("Error updating support ticket:", error);
@@ -121,6 +121,32 @@ export const getSupportTicketsByIdController = async (req: Request, res: Respons
     return;
   } catch (error: any) {
     console.error("Error fetching support tickets:", error);
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+    return;
+  }
+};
+
+// Get support tickets by userID
+export const getsupportTicketsByUserIdController = async (req: Request, res: Response) => {
+  try {
+    const userID = Number(req.params.userID);
+
+    if (isNaN(userID)) {
+      res.status(400).json({ error: "Invalid user ID" });
+      return;
+    }
+
+    const supportTickets = await supportTicketService.getSupportTicketByUserId(userID);
+
+    if (!supportTickets || supportTickets.length === 0) {
+      res.status(404).json({ message: "No support tickets found for this user." });
+      return;
+    }
+
+    res.status(200).json({ data: supportTickets });
+    return;
+  } catch (error: any) {
+    console.error("Error fetching support tickets by user ID:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

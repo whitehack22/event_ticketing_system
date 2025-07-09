@@ -1,5 +1,7 @@
 import { Express } from "express";
-import { createSupportTicketController, deleteSupportTicketController, getAllSupportTicketsController, getSupportTicketByIdController, updateSupportTicketController, } from "./support.controller";
+import { createSupportTicketController, deleteSupportTicketController, getAllSupportTicketsController, 
+    getSupportTicketByIdController, getSupportTicketsByIdController, getsupportTicketsByUserIdController,
+     updateSupportTicketController, } from "./support.controller";
 
 
 
@@ -64,12 +66,23 @@ const supportTicket = (app: Express) => {
     app.route("/api/tickets/:id").get(
         async (req, res, next) => {
             try {
-                await getSupportTicketByIdController(req, res)
+                await getSupportTicketsByIdController(req, res)
             } catch (error) {
                 next(error)
             }
         }
     )
+
+    // Get tickets by user ID
+            app.route("/api/tickets/user/:userID").get(
+            async (req, res, next) => {
+                try {
+                await getsupportTicketsByUserIdController(req, res);
+                } catch (error) {
+                next(error);
+             }
+        }
+     );
 }
 
 

@@ -43,7 +43,14 @@ export const getEventByIdController = async (req: Request, res: Response) => {
 //Create an event controller
 export const createEventController = async (req: Request, res: Response) => {
   try {
-    const event = await eventService.createEvent(req.body);
+    const body = req.body;
+
+    // Convert  Date to strings
+    if (body.eventDate) body.eventDate = new Date(body.eventDate);
+    if (body.startTime) body.startTime = new Date(body.startTime);
+    if (body.endTime) body.endTime = new Date(body.endTime);
+
+    const event = await eventService.createEvent(body);
 
     if (!event) {
       res.status(400).json({ message: "Event not created" });
@@ -68,7 +75,16 @@ export const updateEventController = async (req: Request, res: Response) => {
       return;
     }
 
-    const updated = await eventService.updateEvent(id, req.body);
+    const body = req.body;
+
+    // Convert  Date to strings
+    if (body.eventDate) body.eventDate = new Date(body.eventDate);
+    if (body.startTime) body.startTime = new Date(body.startTime);
+    if (body.endTime) body.endTime = new Date(body.endTime);
+    if (body.createdAt) body.createdAt = new Date(body.createdAt);
+    if (body.updatedAt) body.updatedAt = new Date(body.updatedAt);
+
+    const updated = await eventService.updateEvent(id, body);
     if (!updated) {
       return res.status(404).json({ message: "Event not found" });
     }

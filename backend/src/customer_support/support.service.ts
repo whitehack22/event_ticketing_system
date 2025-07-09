@@ -55,4 +55,11 @@ export const getSupportTicketsById = async (id: number) => {
     return supportTickets;
 }
 
+// Get tickets by user ID
+export const getSupportTicketByUserId = async (userID: number) => {
+  const supportTickets = await db.query.CustomerSupportTicketsTable.findMany({
+    where: eq(CustomerSupportTicketsTable.userID, userID),
+  });
+  return supportTickets;
+};
 

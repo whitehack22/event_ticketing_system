@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createPaymentController, deletePaymentController, getAllPaymentsController, 
-    getPaymentByIdController, getPaymentsByIdController, updatePaymentController } from "./payment.controller";
+    getPaymentByIdController, getPaymentsByIdController, getPaymentsByUserIdController, updatePaymentController } from "./payment.controller";
 
 
 
@@ -71,6 +71,17 @@ const payment = (app: Express) => {
             }
         }
     )
+
+    // Get payments by user ID
+     app.route("/api/payments/user/:userID").get(
+         async (req, res, next) => {
+             try {
+                 await getPaymentsByUserIdController(req, res);
+            } catch (error) {
+                 next(error);
+             }
+            }
+         );
 }
 
 

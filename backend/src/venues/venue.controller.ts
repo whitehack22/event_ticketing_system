@@ -43,7 +43,11 @@ export const getVenueByIdController = async (req: Request, res: Response) => {
 //Create a venue controller
 export const createVenueController = async (req: Request, res: Response) => {
   try {
-    const venue = await venueService.createVenue(req.body);
+    const body = req.body;
+
+    if (body.createdAt) body.createdAt = new Date(body.createdAt);
+
+    const venue = await venueService.createVenue(body);
 
     if (!venue) {
       res.status(400).json({ message: "Venue not created" });
@@ -68,7 +72,11 @@ export const updateVenueController = async (req: Request, res: Response) => {
       return;
     }
 
-    const updated = await venueService.updateVenue(id, req.body);
+    const body = req.body;
+
+    if (body.createdAt) body.createdAt = new Date(body.createdAt);
+
+    const updated = await venueService.updateVenue(id, body);
     if (!updated) {
       return res.status(404).json({ message: "Venue not found" });
     }
