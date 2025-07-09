@@ -47,14 +47,6 @@ export const deletePayment = async (id: number) => {
   return "Payment deleted successfully";
 };
 
-//Getting multiple payments by ID
-export const getPaymentsById = async (id: number) => {
-    const payments = await db.query.PaymentsTable.findMany({
-        where: eq(PaymentsTable.paymentID, id)
-    })
-    return payments;
-}
-
 // Get payments by user ID
 export const getPaymentByUserId = async (userID: number) => {
   const payments = await db.query.PaymentsTable.findMany({

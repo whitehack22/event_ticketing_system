@@ -47,14 +47,6 @@ export const deleteSupportTicket = async (id: number) => {
   return "Support ticket deleted successfully";
 };
 
-//Getting multiple tickets by ID
-export const getSupportTicketsById = async (id: number) => {
-    const supportTickets = await db.query.CustomerSupportTicketsTable.findMany({
-        where: eq(CustomerSupportTicketsTable.ticketID, id)
-    })
-    return supportTickets;
-}
-
 // Get tickets by user ID
 export const getSupportTicketByUserId = async (userID: number) => {
   const supportTickets = await db.query.CustomerSupportTicketsTable.findMany({

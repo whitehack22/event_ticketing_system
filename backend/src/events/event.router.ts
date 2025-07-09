@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createEventController, deleteEventController, getAllEventsController, 
-    getEventByIdController, getEventsByIdController, updateEventController } from "./event.controller";
+    getEventByIdController, updateEventController } from "./event.controller";
 
 
 
@@ -55,17 +55,6 @@ const event = (app: Express) => {
         async (req, res, next) => {
             try {
                 await deleteEventController(req, res)
-            } catch (error) {
-                next(error)
-            }
-        }
-    )
-
-    //get multiple events by ID
-    app.route("/api/events/:id").get(
-        async (req, res, next) => {
-            try {
-                await getEventByIdController(req, res)
             } catch (error) {
                 next(error)
             }

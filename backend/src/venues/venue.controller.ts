@@ -108,28 +108,3 @@ export const deleteVenueController = async (req: Request, res: Response) => {
     return;
   }
 };
-
-// get multiple venues by ID controller
-export const getVenuesByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const venues = await venueService.getVenuesById(id);
-
-    if (!venues || venues.length === 0) {
-      res.status(404).json({ message: "No venues found" });
-      return;
-    }
-    res.status(200).json({ data: venues });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching venues:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};

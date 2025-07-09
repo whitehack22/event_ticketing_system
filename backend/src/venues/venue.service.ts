@@ -47,12 +47,5 @@ export const deleteVenue = async (id: number) => {
   return "Venue deleted successfully";
 };
 
-//Getting multiple venues by ID
-export const getVenuesById = async (id: number) => {
-    const venues = await db.query.VenuesTable.findMany({
-        where: eq(VenuesTable.venueID, id)
-    })
-    return venues;
-}
 
 

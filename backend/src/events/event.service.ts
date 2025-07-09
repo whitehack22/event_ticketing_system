@@ -47,12 +47,5 @@ export const deleteEvent = async (id: number) => {
   return "Event deleted successfully";
 };
 
-//Getting multiple events by ID
-export const getEventsById = async (id: number) => {
-    const events = await db.query.EventsTable.findMany({
-        where: eq(EventsTable.eventID, id)
-    })
-    return events;
-}
 
 

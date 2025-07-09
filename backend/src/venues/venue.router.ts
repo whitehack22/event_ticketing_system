@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createVenueController, deleteVenueController, getAllVenuesController, 
-    getVenueByIdController, getVenuesByIdController, updateVenueController } from "./venue.controller";
+    getVenueByIdController, updateVenueController } from "./venue.controller";
 
 
 
@@ -55,17 +55,6 @@ const venue = (app: Express) => {
         async (req, res, next) => {
             try {
                 await deleteVenueController(req, res)
-            } catch (error) {
-                next(error)
-            }
-        }
-    )
-
-    //get multiple venues by ID
-    app.route("/api/venues/:id").get(
-        async (req, res, next) => {
-            try {
-                await getVenuesByIdController(req, res)
             } catch (error) {
                 next(error)
             }

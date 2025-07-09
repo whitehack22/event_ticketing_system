@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createUserController, deleteUserController, getAllUsersController, 
-    getUserByIdController, getUsersByIdController, loginUserController, updateUserController, 
+    getUserByIdController, loginUserController, updateUserController, 
     verifyUserController} from "./user.controller";
 
 
@@ -54,17 +54,6 @@ const user = (app: Express) => {
         async (req, res, next) => {
             try {
                 await deleteUserController(req, res)
-            } catch (error) {
-                next(error)
-            }
-        }
-    )
-
-    //get multiple users by ID
-    app.route("/api/users/:id").get(
-        async (req, res, next) => {
-            try {
-                await getUsersByIdController(req, res)
             } catch (error) {
                 next(error)
             }

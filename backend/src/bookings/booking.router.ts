@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createBookingController, deleteBookingController, getAllBookingsController, 
-    getBookingByIdController, getBookingsByIdController, getBookingsByUserIdController, updateBookingController } from "./booking.controller";
+    getBookingByIdController, getBookingsByUserIdController, updateBookingController } from "./booking.controller";
 import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
 
 
@@ -57,17 +57,6 @@ const booking = (app: Express) => {
         async (req, res, next) => {
             try {
                 await deleteBookingController(req, res)
-            } catch (error) {
-                next(error)
-            }
-        }
-    )
-
-    //get multiple bookings by ID
-    app.route("/api/bookings/:id").get(
-        async (req, res, next) => {
-            try {
-                await getBookingsByIdController(req, res)
             } catch (error) {
                 next(error)
             }

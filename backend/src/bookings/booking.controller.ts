@@ -101,30 +101,6 @@ export const deleteBookingController = async (req: Request, res: Response) => {
   }
 };
 
-// get multiple bookings by ID controller
-export const getBookingsByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const bookings = await bookingService.getBookingsById(id);
-
-    if (!bookings || bookings.length === 0) {
-      res.status(404).json({ message: "No bookings found" });
-      return;
-    }
-    res.status(200).json({ data: bookings });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching bookings:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};
 
 // Get bookings by userID
 export const getBookingsByUserIdController = async (req: Request, res: Response) => {

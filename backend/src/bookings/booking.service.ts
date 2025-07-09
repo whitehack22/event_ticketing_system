@@ -47,14 +47,6 @@ export const deleteBooking = async (id: number) => {
   return "Booking deleted successfully";
 };
 
-//Getting multiple bookings by ID
-export const getBookingsById = async (id: number) => {
-    const bookings = await db.query.BookingsTable.findMany({
-        where: eq(BookingsTable.bookingID, id)
-    })
-    return bookings;
-}
-
 // Get bookings by user ID
 export const getBookingsByUserId = async (userID: number) => {
   const bookings = await db.query.BookingsTable.findMany({

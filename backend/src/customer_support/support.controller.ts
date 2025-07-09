@@ -101,31 +101,6 @@ export const deleteSupportTicketController = async (req: Request, res: Response)
   }
 };
 
-// get multiple support tickets by ID controller
-export const getSupportTicketsByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const supportTickets = await supportTicketService.getSupportTicketsById(id);
-
-    if (!supportTickets || supportTickets.length === 0) {
-      res.status(404).json({ message: "No support tickets found" });
-      return;
-    }
-    res.status(200).json({ data: supportTickets });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching support tickets:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};
-
 // Get support tickets by userID
 export const getsupportTicketsByUserIdController = async (req: Request, res: Response) => {
   try {

@@ -170,31 +170,6 @@ export const deleteUserController = async (req: Request, res: Response) => {
   }
 };
 
-// get multiple users by ID controller
-export const getUsersByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const users = await userService.getUsersById(id);
-
-    if (!users || users.length === 0) {
-      res.status(404).json({ message: "No users found" });
-      return;
-    }
-    res.status(200).json({ data: users });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching users:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};
-
 // login user controller
 export const loginUserController = async (req: Request, res: Response) => {
   

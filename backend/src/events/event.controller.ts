@@ -116,28 +116,3 @@ export const deleteEventController = async (req: Request, res: Response) => {
     return;
   }
 };
-
-// get multiple events by ID controller
-export const getEventsByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const events = await eventService.getEventsById(id);
-
-    if (!events || events.length === 0) {
-      res.status(404).json({ message: "No events found" });
-      return;
-    }
-    res.status(200).json({ data: events });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching events:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};

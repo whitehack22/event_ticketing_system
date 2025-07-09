@@ -112,31 +112,6 @@ export const deletePaymentController = async (req: Request, res: Response) => {
   }
 };
 
-// get multiple payments by ID controller
-export const getPaymentsByIdController = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    if (isNaN(id)) {
-      res.status(400).json({ message: "Invalid ID" });
-      return;
-    }
-
-    const payments = await paymentService.getPaymentsById(id);
-
-    if (!payments || payments.length === 0) {
-      res.status(404).json({ message: "No payments found" });
-      return;
-    }
-    res.status(200).json({ data: payments });
-    return;
-  } catch (error: any) {
-    console.error("Error fetching payments:", error);
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-    return;
-  }
-};
-
 // Get payments by userID
 export const getPaymentsByUserIdController = async (req: Request, res: Response) => {
   try {

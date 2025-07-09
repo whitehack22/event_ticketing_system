@@ -49,14 +49,6 @@ export const deleteUser = async (id: number) => {
   return "User deleted successfully";
 };
 
-//Getting multiple users by ID
-export const getUsersById = async (id: number) => {
-    const users = await db.query.UsersTable.findMany({
-        where: eq(UsersTable.userID, id)
-    })
-    return users;
-}
-
 // login a user
 export const userLoginService = async (user:TIUser) => {
     //email and password

@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createSupportTicketController, deleteSupportTicketController, getAllSupportTicketsController, 
-    getSupportTicketByIdController, getSupportTicketsByIdController, getsupportTicketsByUserIdController,
+    getSupportTicketByIdController, getsupportTicketsByUserIdController,
      updateSupportTicketController, } from "./support.controller";
 
 
@@ -56,17 +56,6 @@ const supportTicket = (app: Express) => {
         async (req, res, next) => {
             try {
                 await deleteSupportTicketController(req, res)
-            } catch (error) {
-                next(error)
-            }
-        }
-    )
-
-    //get multiple tickets by ID
-    app.route("/api/tickets/:id").get(
-        async (req, res, next) => {
-            try {
-                await getSupportTicketsByIdController(req, res)
             } catch (error) {
                 next(error)
             }
