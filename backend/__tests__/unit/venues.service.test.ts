@@ -28,7 +28,7 @@ describe("Venues Service", () => {
   describe("createVenue", () => {
     it("should insert a venue and return the inserted venue", async () => {
       const venue = {
-             name: "Aberdare National Park",
+            name: "Aberdare National Park",
             address: "123 Nyeri",
             capacity: 500,
             contactNumber: "0722311455"
@@ -59,17 +59,10 @@ describe("Venues Service", () => {
       });
 
       const result = await createVenue({
-        title: "Christmas Festival 2025",
-        description: "Welcome to Christmas Festivals at Uhuru Park in Nairobi",
-        category: "Festivals",
-        venueDate: "2025-08-15",
-        startTime: "2025-08-15T09:00:00.000Z",
-        endTime: "2025-08-15T17:00:00.000Z",
-        ticketPrice: 100.00,
-        totalTickets: 400,
-        availableTickets: 250,
-        venueID: 1,
-        isActive: true
+        name: "Aberdare National Park",
+        address: "123 Nyeri",
+        capacity: 500,
+        contactNumber: "0722311455"
       } as any);
 
       expect(result).toBeNull();
@@ -81,19 +74,11 @@ describe("Venues Service", () => {
       const venues = [
         {
           venueID: 1,
-          title: "Christmas Festival 2025",
-          description: "Welcome to Christmas Festivals at Uhuru Park in Nairobi",
-          category: "Festivals",
-          venueDate: "2025-08-15",
-          startTime: "2025-08-15T09:00:00.000Z",
-          endTime: "2025-08-15T17:00:00.000Z",
-          ticketPrice: 100.00,
-          totalTickets: 400,
-          availableTickets: 250,
-          venueID: 1,
-          isActive: true,
+          name: "Aberdare National Park",
+          address: "123 Nyeri",
+          capacity: 500,
+          contactNumber: "0722311455",
           createdAt: new Date(),
-          updatedAt: new Date(),
         },
       ];
 
@@ -114,19 +99,11 @@ describe("Venues Service", () => {
     it("should return a venue if found", async () => {
       const venue = {
           venueID: 1,
-          title: "Christmas Festival 2025",
-          description: "Welcome to Christmas Festivals at Uhuru Park in Nairobi",
-          category: "Festivals",
-          venueDate: "2025-08-15",
-          startTime: "2025-08-15T09:00:00.000Z",
-          endTime: "2025-08-15T17:00:00.000Z",
-          ticketPrice: 100.00,
-          totalTickets: 400,
-          availableTickets: 250,
-          venueID: 1,
-          isActive: true,
+          name: "Aberdare National Park",
+          address: "123 Nyeri",
+          capacity: 500,
+          contactNumber: "0722311455",
           createdAt: new Date(),
-          updatedAt: new Date(),
       };
 
       (db.query.VenuesTable.findFirst as jest.Mock).mockResolvedValueOnce(venue);
@@ -146,19 +123,11 @@ describe("Venues Service", () => {
     it("should update a venue and return the updated object", async () => {
       const updatedvenue = {
         venueID: 1,
-        title: "Easter Festival 2025",
-        description: "Welcome to Easter Festival at Galleria in Nairobi",
-        category: "Festivals",
-        venueDate: "2025-08-19",
-        startTime: "2025-08-15T09:00:00.000Z",
-        endTime: "2025-08-15T17:00:00.000Z",
-        ticketPrice: 50.00,
-        totalTickets: 400,
-        availableTickets: 250,
-        venueID: 1,
-        isActive: true,
+        name: "Tsavo National Park",
+        address: "123 Mombasa",
+        capacity: 500,
+        contactNumber: "0722311455",
         createdAt: new Date(),
-        updatedAt: new Date(),
       };
 
       (db.update as jest.Mock).mockReturnValue({
