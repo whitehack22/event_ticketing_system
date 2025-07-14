@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { createBookingController, deleteBookingController, getAllBookingsController, 
     getBookingByIdController, getBookingsByUserIdController, updateBookingController } from "./booking.controller";
-import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
+ import { adminRoleAuth, userRoleAuth } from "../middleware/bearAuth";
 
 
 

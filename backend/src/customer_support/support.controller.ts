@@ -72,7 +72,7 @@ export const updateSupportTicketController = async (req: Request, res: Response)
     if (!updated) {
       return res.status(404).json({ message: "Support Ticket not found" });
     }
-    res.status(200).json({ message: "supportTicket updated successfully", supportTicket: updated });
+    res.status(200).json({ message: "Support Ticket updated successfully", supportTicket: updated });
     return;
   } catch (error: any) {
     console.error("Error updating support ticket:", error);
