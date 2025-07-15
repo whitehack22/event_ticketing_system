@@ -140,6 +140,10 @@ export const updateUserController = async (req: Request, res: Response) => {
       return;
     }
 
+    const user = await userService.getUserById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const updated = await userService.updateUser(id, req.body);
     res.status(200).json({ message: "User updated successfully", user: updated });
     return;
@@ -182,7 +186,7 @@ export const loginUserController = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // verify the password - 1234donkey
+        // verify the password 
         const userMatch = await bcrypt.compareSync(user.password, userExist.password)
         if (!userMatch) {
             return res.status(401).json({ message: "Invalid credentials" });

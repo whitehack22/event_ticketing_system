@@ -10,6 +10,7 @@ const config: Config = {
     "/node_modules",
     "src/Drizzle/db.ts",
     "src/Drizzle/schema.ts",
+    "src/mailer/mailer.ts",
   ]
 };
 
