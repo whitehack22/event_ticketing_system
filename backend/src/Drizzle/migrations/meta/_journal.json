@@ -15,6 +15,27 @@
       "when": 1751724129810,
       "tag": "0001_loving_smasher",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752735331367,
+      "tag": "0002_exotic_mysterio",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752735682760,
+      "tag": "0003_famous_slapstick",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752735813106,
+      "tag": "0004_clever_genesis",
+      "breakpoints": true
     }
   ]
 }
