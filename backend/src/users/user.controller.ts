@@ -12,7 +12,7 @@ export const getAllUsersController = async (_req: Request, res: Response) => {
     res.status(200).json({ data: users })
     return;
   } catch (error: any) {
-    console.error("Error fetching users:", error)
+    console.log("Error fetching users:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -76,12 +76,12 @@ export const createUserController = async (req: Request, res: Response) => {
                 </div>`
             );
     } catch (emailError) {
-      console.error("Failed to send registration email:", emailError);
+      console.log("Failed to send registration email:", emailError);
     }
     res.status(201).json({ message: "User created. Verification code sent to email." });
     return;
   } catch (error: any) {
-    console.error("Error creating user:", error);
+    console.log("Error creating user:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -113,7 +113,7 @@ export const verifyUserController = async (req: Request, res: Response) => {
                      </div>`
                 )
           } catch ( error: any ) {
-             console.error("Failed to send verification success email:", error);
+             console.log("Failed to send verification success email:", error);
           }
           res.status(200).json({ message: "User verified successfully" })
           return;
@@ -148,7 +148,7 @@ export const updateUserController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "User updated successfully", user: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating user:", error);
+    console.log("Error updating user:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -168,7 +168,7 @@ export const deleteUserController = async (req: Request, res: Response) => {
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting user:", error);
+    console.log("Error deleting user:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

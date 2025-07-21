@@ -8,7 +8,7 @@ export const getAllBookingsController = async (_req: Request, res: Response) => 
     res.status(200).json({ data: bookings })
     return;
   } catch (error: any) {
-    console.error("Error fetching bookings:", error)
+    console.log("Error fetching bookings:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -52,7 +52,7 @@ export const createBookingController = async (req: Request, res: Response) => {
     res.status(201).json({ message: "Booking created successfully", booking });
     return;
   } catch (error: any) {
-    console.error("Error creating booking:", error);
+    console.log("Error creating booking:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -75,7 +75,7 @@ export const updateBookingController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Booking updated successfully", booking: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating booking:", error);
+    console.log("Error updating booking:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -95,7 +95,7 @@ export const deleteBookingController = async (req: Request, res: Response) => {
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting booking:", error);
+    console.log("Error deleting booking:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -122,7 +122,7 @@ export const getBookingsByUserIdController = async (req: Request, res: Response)
     res.status(200).json({ data: bookings });
     return;
   } catch (error: any) {
-    console.error("Error fetching bookings by user ID:", error);
+    console.log("Error fetching bookings by user ID:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

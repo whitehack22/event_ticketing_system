@@ -1,11 +1,123 @@
+import { createBrowserRouter, RouterProvider } from 'react-router'
 import './App.css'
+import Error from './components/error/Error'
+import AboutPage from './pages/AboutPage'
+import LandingPage from './pages/LandingPage'
+import { Toaster } from 'sonner'
+import Register from './pages/auth/Register'
+import VerifyUser from './pages/auth/VerifyUser'
+import Login from './pages/auth/Login'
+import { useSelector } from 'react-redux'
+import type { RootState } from './app/store'
+import AdminDashboard from './pages/dashboard/AdminDashboard/AdminDashboard'
+import UserDashboard from './pages/dashboard/UserDashboard/UserDashboard'
 
 function App() {
+   const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
+  const isUser = useSelector((state: RootState) => state.user.user?.role === 'user');
   
-
+const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <LandingPage />,
+    },
+    {
+      path: '/about',
+      element: <AboutPage />
+    },
+    {
+      path: '/register',
+      element: <Register />
+    },
+     {
+      path: '/register/verify',
+      element: <VerifyUser />
+    },
+    {
+      path: '/login',
+      element: <Login />
+    },
+     // Admin Dashboard Routes
+    {
+      path: '/admin/dashboard',
+       element: isAdmin ? <AdminDashboard /> : <Login />,
+       children: [
+        {
+          path: 'analytics',
+          element: <h1>Analytics</h1>
+        },
+        {
+          path: 'bookings',
+          element: <h1>Bookings</h1>
+        },
+        {
+          path: 'events',
+          element:<h1>Events</h1>
+        },
+        {
+          path: 'venues',
+          element:<h1>Venues</h1>
+        },
+        {  
+          path: 'users',
+          element: <h1>Users</h1>
+        },
+        {  
+          path: 'customerSupport',
+          element: <h1>Admin Customer Support</h1>
+        },
+        {
+          path: 'profile',
+          element:<h1>Admin Profile</h1>
+        },
+        
+      ]
+    },
+     // User Dashboard Routes
+     {
+      path: '/user/dashboard',
+      element: isUser ? <UserDashboard /> : <Login />,
+       children: [
+        
+        {
+          path: 'bookings',
+          element: <h1>Bookings</h1>
+        },
+        {
+          path: 'events',
+          element:<h1>Events</h1>
+        },
+        {
+          path: 'venues',
+          element:<h1>Venues</h1>
+        },
+        {  
+          path: 'customerSupport',
+          element: <h1>User Customer Support</h1>
+        },
+        {
+          path: 'profile',
+          element:<h1>User Profile</h1>
+        },
+        
+      ]
+    },
+    {
+      path: '*',
+      element: <Error />
+    }
+  ])
   return (
     <>
-     
+     <RouterProvider router={router} />
+       <Toaster position='top-right' toastOptions={{
+        classNames: {
+          error: 'bg-red-500 text-white',
+          success: 'bg-green-500 text-white',
+          info: 'bg-blue-500 text-white',
+        }
+
+      }} />
     </>
   )
 }

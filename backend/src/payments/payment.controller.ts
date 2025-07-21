@@ -8,7 +8,7 @@ export const getAllPaymentsController = async (_req: Request, res: Response) => 
     res.status(200).json({ data: payments })
     return;
   } catch (error: any) {
-    console.error("Error fetching payments:", error)
+    console.log("Error fetching payments:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -57,7 +57,7 @@ export const createPaymentController = async (req: Request, res: Response) => {
     res.status(201).json({ message: "Payment created successfully", payment });
     return;
   } catch (error: any) {
-    console.error("Error creating payment:", error);
+    console.log("Error creating payment:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -86,7 +86,7 @@ export const updatePaymentController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Payment updated successfully", payment: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating payment:", error);
+    console.log("Error updating payment:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -106,7 +106,7 @@ export const deletePaymentController = async (req: Request, res: Response) => {
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting payment:", error);
+    console.log("Error deleting payment:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -132,7 +132,7 @@ export const getPaymentsByUserIdController = async (req: Request, res: Response)
     res.status(200).json({ data: payments });
     return;
   } catch (error: any) {
-    console.error("Error fetching payments by user ID:", error);
+    console.log("Error fetching payments by user ID:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

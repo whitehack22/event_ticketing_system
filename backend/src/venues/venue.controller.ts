@@ -8,7 +8,7 @@ export const getAllVenuesController = async (_req: Request, res: Response) => {
     res.status(200).json({ data: venues })
     return;
   } catch (error: any) {
-    console.error("Error fetching venues:", error)
+    console.log("Error fetching venues:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -56,7 +56,7 @@ export const createVenueController = async (req: Request, res: Response) => {
     res.status(201).json({ message: "Venue created successfully", venue });
     return;
   } catch (error: any) {
-    console.error("Error creating venue:", error);
+    console.log("Error creating venue:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -83,7 +83,7 @@ export const updateVenueController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Venue updated successfully", event: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating venue:", error);
+    console.log("Error updating venue:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -103,7 +103,7 @@ export const deleteVenueController = async (req: Request, res: Response) => {
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting venue:", error);
+    console.log("Error deleting venue:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

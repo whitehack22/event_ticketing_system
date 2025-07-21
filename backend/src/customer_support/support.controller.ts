@@ -8,7 +8,7 @@ export const getAllSupportTicketsController = async (_req: Request, res: Respons
     res.status(200).json({ data: supportTickets })
     return;
   } catch (error: any) {
-    console.error("Error fetching support tickets:", error)
+    console.log("Error fetching support tickets:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -52,7 +52,7 @@ export const createSupportTicketController = async (req: Request, res: Response)
     res.status(201).json({ message: "Support Ticket created successfully", supportTicket });
     return;
   } catch (error: any) {
-    console.error("Error creating support ticket:", error);
+    console.log("Error creating support ticket:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -75,7 +75,7 @@ export const updateSupportTicketController = async (req: Request, res: Response)
     res.status(200).json({ message: "Support Ticket updated successfully", supportTicket: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating support ticket:", error);
+    console.log("Error updating support ticket:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -95,7 +95,7 @@ export const deleteSupportTicketController = async (req: Request, res: Response)
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting support ticket:", error);
+    console.log("Error deleting support ticket:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -121,7 +121,7 @@ export const getsupportTicketsByUserIdController = async (req: Request, res: Res
     res.status(200).json({ data: supportTickets });
     return;
   } catch (error: any) {
-    console.error("Error fetching support tickets by user ID:", error);
+    console.log("Error fetching support tickets by user ID:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }

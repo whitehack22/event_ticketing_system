@@ -8,7 +8,7 @@ export const getAllEventsController = async (_req: Request, res: Response) => {
     res.status(200).json({ data: events })
     return;
   } catch (error: any) {
-    console.error("Error fetching events:", error)
+    console.log("Error fetching events:", error)
     res.status(500).json({ error: error.message || "Internal Server Error" })
     return;
   }
@@ -59,7 +59,7 @@ export const createEventController = async (req: Request, res: Response) => {
     res.status(201).json({ message: "Event created successfully", event });
     return;
   } catch (error: any) {
-    console.error("Error creating event:", error);
+    console.log("Error creating event:", error);
      res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -91,7 +91,7 @@ export const updateEventController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Event updated successfully", event: updated });
     return;
   } catch (error: any) {
-    console.error("Error updating event:", error);
+    console.log("Error updating event:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
@@ -111,7 +111,7 @@ export const deleteEventController = async (req: Request, res: Response) => {
     res.status(204).send();
     return;
   } catch (error: any) {
-    console.error("Error deleting event:", error);
+    console.log("Error deleting event:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
     return;
   }
