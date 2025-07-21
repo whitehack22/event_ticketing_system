@@ -4,6 +4,11 @@ import { userAPI } from '../Features/users/usersAPI'
 import storage from 'redux-persist/lib/storage'
 import { loginAPI } from '../Features/login/loginAPI'
 import userSlice from '../Features/login/userSlice'
+import { bookingsAPI } from '../Features/booking/bookingsAPI'
+import { customerSupportAPI } from '../Features/customerSupport/customerSupportAPI'
+import { paymentsAPI } from '../Features/payments/paymentsAPI'
+import { eventsAPI } from '../Features/events/eventsAPI'
+import { venuesAPI } from '../Features/venues/venuesAPI'
 
 
 
@@ -18,6 +23,11 @@ const persistConfig = {
 const rootReducer = combineReducers({ //combining all reducers into one root reducer
     [userAPI.reducerPath]: userAPI.reducer,
     [loginAPI.reducerPath]: loginAPI.reducer,
+    [bookingsAPI.reducerPath]: bookingsAPI.reducer,
+    [customerSupportAPI.reducerPath]: customerSupportAPI.reducer,
+    [paymentsAPI.reducerPath]: paymentsAPI.reducer,
+    [eventsAPI.reducerPath]: eventsAPI.reducer,
+    [venuesAPI.reducerPath]: venuesAPI.reducer,
     user: userSlice
 })
 
@@ -33,6 +43,11 @@ export const store = configureStore({
    })
         .concat(userAPI.middleware) // add the usersAPI middleware to the store - helps with caching, invalidation, polling, and other features
         .concat(loginAPI.middleware) // add the loginAPI middleware
+        .concat(bookingsAPI.middleware) 
+        .concat(customerSupportAPI.middleware) 
+        .concat(paymentsAPI.middleware) 
+        .concat(eventsAPI.middleware) 
+        .concat(venuesAPI.middleware) 
 })
 
 export const persistedStore = persistStore(store) // needed for persisting the store to local storage

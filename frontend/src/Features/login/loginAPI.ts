@@ -11,6 +11,7 @@ export type TLoginResponse = {
         contactPhone: string;
         address: string;
         role: string;
+        image_url: string;
     };
 }
 

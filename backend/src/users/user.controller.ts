@@ -109,7 +109,7 @@ export const verifyUserController = async (req: Request, res: Response) => {
                     `<div>
                     <h2>Hello ${user.lastName},</h2>
                     <p>Your account has been <strong>successfully verified</strong>!</p>
-                     <p>You can now log in and enjoy our services.</p>
+                     <p>You can now log in and enjoy our services with Event Flow.</p>
                      </div>`
                 )
           } catch ( error: any ) {
@@ -195,9 +195,9 @@ export const loginUserController = async (req: Request, res: Response) => {
         // create a payload
         const payload = {
             sub: userExist.userID,
-            user_id: userExist.userID,
-            first_name: userExist.firstName,
-            last_name: userExist.lastName,
+            userID: userExist.userID,
+            firstName: userExist.firstName,
+            lastName: userExist.lastName,
             role: userExist.role,
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
         }
@@ -214,9 +214,9 @@ export const loginUserController = async (req: Request, res: Response) => {
             message: "Login successfull",
             token,
             user: {
-                user_id: userExist.userID,
-                first_name: userExist.firstName,
-                last_name: userExist.lastName,
+                userID: userExist.userID,
+                firstName: userExist.firstName,
+                lastName: userExist.lastName,
                 email: userExist.email,
                 contactPhone: userExist.contactPhone,
                 address: userExist.address,

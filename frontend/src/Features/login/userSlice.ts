@@ -11,6 +11,8 @@ export type UserState = {
         contactPhone: string;
         address: string;
         role: string;
+        image_url: string;
+
     } | null;
 } // how the user state will look like in the store
 

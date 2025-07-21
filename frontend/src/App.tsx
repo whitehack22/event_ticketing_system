@@ -51,6 +51,10 @@ const router = createBrowserRouter([
           element: <h1>Bookings</h1>
         },
         {
+          path: 'payments',
+          element: <h1>Payments</h1>
+        },
+        {
           path: 'events',
           element:<h1>Events</h1>
         },
@@ -82,6 +86,10 @@ const router = createBrowserRouter([
         {
           path: 'bookings',
           element: <h1>Bookings</h1>
+        },
+        {
+          path: 'payments',
+          element: <h1>Payments</h1>
         },
         {
           path: 'events',
