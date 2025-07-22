@@ -12,7 +12,7 @@ const About = () => {
                 </div>
 
 
-                <div className="w-full md:w-1/2 border-2 border-gray-300 rounded-lg p-6 md:p-8 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2  rounded-lg p-6 md:p-8 mb-6 md:mb-0">
                     <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-600">
                         About EventFlow
                     </h1>

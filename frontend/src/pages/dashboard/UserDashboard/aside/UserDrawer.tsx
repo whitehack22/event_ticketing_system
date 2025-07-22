@@ -1,16 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { adminDrawerData } from "./drawerData";
+import { userDrawerData } from "./drawerData";
 import { useSelector } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa";
 import type { RootState } from "../../../../app/store";
 
-type AdminDrawerProps = {
+type UserDrawerProps = {
   isSidebarOpen: boolean;
   onToggle: () => void;
 };
 
 
-const AdminDrawer = ({ isSidebarOpen, onToggle }: AdminDrawerProps) => {
+const UserDrawer = ({ isSidebarOpen, onToggle }: UserDrawerProps) => {
   const user = useSelector((state: RootState) => state.user.user);
 
   return (
@@ -39,7 +39,7 @@ const AdminDrawer = ({ isSidebarOpen, onToggle }: AdminDrawerProps) => {
 
       <nav className="flex-1 overflow-y-auto mt-4">
         <ul className="space-y-2 px-2">
-          {adminDrawerData.map(({ id, name, icon: Icon, link }) => (
+          {userDrawerData.map(({ id, name, icon: Icon, link }) => (
             <li key={id}>
               <NavLink
                 to={link}
@@ -60,4 +60,4 @@ const AdminDrawer = ({ isSidebarOpen, onToggle }: AdminDrawerProps) => {
   );
 };
 
-export default AdminDrawer;
+export default UserDrawer;

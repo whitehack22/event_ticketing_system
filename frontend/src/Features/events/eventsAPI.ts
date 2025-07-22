@@ -11,10 +11,10 @@ export type TEvent = {
     eventDate: string;
     startTime: string;
     endTime: string;
-    ticketPrice: string;
+    ticketPrice: number;
     totalTickets: number;
     availableTickets: number;
-    isActive: string;
+    isActive: boolean;
     image_url: string;
     venueID: number;
     createdAt: string;

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import type { RootState } from './app/store'
 import AdminDashboard from './pages/dashboard/AdminDashboard/AdminDashboard'
 import UserDashboard from './pages/dashboard/UserDashboard/UserDashboard'
+import Events from './pages/dashboard/AdminDashboard/events/Events'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
         },
         {
           path: 'events',
-          element:<h1>Events</h1>
+          element:<Events />
         },
         {
           path: 'venues',

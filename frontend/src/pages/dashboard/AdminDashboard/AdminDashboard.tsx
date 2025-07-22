@@ -5,15 +5,12 @@ import Footer from "../../../components/footer/Footer";
 import AdminDrawer from "./aside/AdminDrawer";
 import { FaBars } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import type { RootState } from "../../../app/store";
-import { useSelector } from "react-redux";
 
 const AdminDashboard = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const user = useSelector((state: RootState) => state.user.user);
+  const [isDrawerExpanded, setIsDrawerExpanded] = useState(true);
 
   const handleDrawerToggle = () => {
-    setDrawerOpen((prev) => !prev);
+    setIsDrawerExpanded((prev) => !prev);
   };
 
   return (
@@ -23,38 +20,29 @@ const AdminDashboard = () => {
       {/* Top bar */}
       <div className="flex px-6 py-4 bg-gradient-to-b from-gray-800 to-gray-900 text-white items-center shadow">
         <button
-          className="mr-4 text-2xl lg:hidden"
+          className="mr-4 text-2xl"
           onClick={handleDrawerToggle}
         >
-          {drawerOpen ? <IoCloseSharp /> : <FaBars />}
+          {isDrawerExpanded ? <IoCloseSharp /> : <FaBars />}
         </button>
         <span className="text-xl font-semibold">
-          Welcome to the Admin Dashboard {user?.firstName}
+          Welcome to the Admin Dashboard
         </span>
       </div>
 
-      <div className="flex flex-1">
+      {/* Main layout */}
+      <div className="flex flex-1 transition-all duration-300 ease-in-out">
         {/* Drawer */}
         <aside
-          className={`bg-white transition-all duration-300 ease-in-out ${
-            drawerOpen ? "block" : "hidden"
-          } fixed top-0 z-40 w-64 lg:static lg:block`}
-          style={{ minHeight: "100vh" }}
+          className={`bg-gray-900 text-white h-full transition-all duration-300 ease-in-out ${
+            isDrawerExpanded ? "w-64" : "w-16"
+          }`}
         >
-          <div className="h-full relative">
-            {/* Close button for mobile */}
-            <button
-              className="absolute top-4 right-4 text-white text-xl lg:hidden"
-              onClick={handleDrawerToggle}
-            >
-              <IoCloseSharp />
-            </button>
-            <AdminDrawer />
-          </div>
+          <AdminDrawer isSidebarOpen={isDrawerExpanded} onToggle={handleDrawerToggle} />
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 bg-gray-50 p-6 overflow-auto shadow-inner">
+        <main className="flex-1 bg-gray-50 p-6 overflow-auto shadow-inner transition-all duration-300">
           <Outlet />
         </main>
       </div>

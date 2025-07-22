@@ -63,6 +63,7 @@ export const userLoginService = async (user:TIUser) => {
             contactPhone: true,
             address: true,
             role: true,
+            image_url: true,
             createdAt: true,
             updatedAt: true
         }, where: sql`${UsersTable.email} = ${email}`

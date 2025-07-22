@@ -221,6 +221,7 @@ export const loginUserController = async (req: Request, res: Response) => {
                 contactPhone: userExist.contactPhone,
                 address: userExist.address,
                 role: userExist.role,
+                image_url: userExist.image_url,
                 createdAt: userExist.createdAt,
                 updatedAt: userExist.updatedAt
             }

@@ -18,8 +18,8 @@ app.use(express.json());
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
   }))
-// app.use(logger)
-// app.use(rateLimiterMiddleware)
+app.use(logger)
+app.use(rateLimiterMiddleware)
 
 //route
 booking(app);
