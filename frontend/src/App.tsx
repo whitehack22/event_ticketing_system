@@ -12,6 +12,11 @@ import type { RootState } from './app/store'
 import AdminDashboard from './pages/dashboard/AdminDashboard/AdminDashboard'
 import UserDashboard from './pages/dashboard/UserDashboard/UserDashboard'
 import Events from './pages/dashboard/AdminDashboard/events/Events'
+import Venues from './pages/dashboard/AdminDashboard/venues/Venues'
+import Bookings from './pages/dashboard/AdminDashboard/bookings/Bookings'
+import Payments from './pages/dashboard/AdminDashboard/payments/Payments'
+import Users from './pages/dashboard/AdminDashboard/manageUsers/Users'
+import CustomerSupport from './pages/dashboard/AdminDashboard/customerSupport/CustomerSupport'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -49,11 +54,11 @@ const router = createBrowserRouter([
         },
         {
           path: 'bookings',
-          element: <h1>Bookings</h1>
+          element: <Bookings />
         },
         {
           path: 'payments',
-          element: <h1>Payments</h1>
+          element: <Payments />
         },
         {
           path: 'events',
@@ -61,15 +66,15 @@ const router = createBrowserRouter([
         },
         {
           path: 'venues',
-          element:<h1>Venues</h1>
+          element:<Venues />
         },
         {  
           path: 'users',
-          element: <h1>Users</h1>
+          element: <Users />
         },
         {  
           path: 'customerSupport',
-          element: <h1>Admin Customer Support</h1>
+          element: <CustomerSupport />
         },
         {
           path: 'profile',

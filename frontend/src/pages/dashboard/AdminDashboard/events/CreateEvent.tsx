@@ -58,7 +58,7 @@ const CreateEvent = () => {
 
   const onSubmit: SubmitHandler<CreateEventInputs> = async (data) => {
     try {
-      console.log("Form Data Submitted:", data);
+      // console.log("Form Data Submitted:", data);
 
       const eventDateOnly = new Date(data.eventDate).toISOString().split("T")[0]; // "2025-08-15"
       const startTimeISO = new Date(`${eventDateOnly}T${data.startTime}`).toISOString();
@@ -90,17 +90,23 @@ const CreateEvent = () => {
           <textarea {...register("description")} placeholder="Description" className="textarea w-full" />
           {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-          <select {...register("category")} className="select w-full text-gray-900">
-            <option value="">Select Category</option>
-            <option value="Music">Music</option>
-            <option value="Art">Art</option>
-            <option value="Tech">Tech</option>
-            <option value="Sports">Sports</option>
-            <option value="Gaming">Gaming</option>
-            <option value="Food">Food</option>
-            <option value="Education">Education</option>
-            <option value="Festivals">Festivals</option>
+          <select
+            {...register("category")}
+            className="select select-bordered w-full text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+            <option disabled value="">
+              🎯 Select Category
+            </option>
+            <option value="Music">🎵 Music</option>
+            <option value="Art">🎨 Art</option>
+            <option value="Tech">💻 Tech</option>
+            <option value="Sports">🏀 Sports</option>
+            <option value="Gaming">🎮 Gaming</option>
+            <option value="Food">🍔 Food</option>
+            <option value="Education">📚 Education</option>
+            <option value="Festivals">🎉 Festivals</option>
           </select>
+
           {errors.category && <p className="text-red-500">{errors.category.message}</p>}
           <input type="date" {...register("eventDate")} className="input w-full" />
           <input type="time" {...register("startTime")} className="input w-full" />

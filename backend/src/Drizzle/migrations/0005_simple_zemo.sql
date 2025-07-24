@@ -1,0 +1,1 @@
+ALTER TABLE "customer_support_tickets" ADD COLUMN "email" varchar(100) NOT NULL;

@@ -36,6 +36,13 @@
       "when": 1752735813106,
       "tag": "0004_clever_genesis",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1753270233218,
+      "tag": "0005_simple_zemo",
+      "breakpoints": true
     }
   ]
 }

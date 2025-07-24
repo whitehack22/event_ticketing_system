@@ -6,6 +6,7 @@ import type { RootState } from "../../app/store";
 export type TCustomerSupport = {
     ticketID: number;
     userID: number;
+    email: string;
     subject: string;
     description: string;
     status: string;

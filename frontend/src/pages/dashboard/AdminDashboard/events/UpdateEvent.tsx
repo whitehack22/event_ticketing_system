@@ -19,7 +19,6 @@ const schema = yup.object({
   isActive: yup.boolean().default(true),
   image_url: yup.string().url().required("Image upload is required"),
   venueID: yup.number().required().positive().integer(),
-  createdAt: yup.string().required(),
   updatedAt: yup.string().required(),
 });
 
@@ -28,8 +27,6 @@ type UpdateEventInputs = yup.InferType<typeof schema>;
 type UpdateEventProps = {
   event: TEvent | null;
 };
-
-
 
 const UpdateEvent = ({ event }: UpdateEventProps) => {
   const [updateEvent, { isLoading }] = eventsAPI.useUpdateEventMutation({
@@ -63,7 +60,6 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
       setValue("isActive", event.isActive);
       setValue("image_url", event.image_url);
       setValue("venueID", event.venueID);
-      setValue("createdAt", event.createdAt);
       setValue("updatedAt", event.updatedAt);
     } else {
       reset();
@@ -107,6 +103,8 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
         else return;
       }
 
+      data.updatedAt = new Date().toISOString();
+
       const updatedData = { ...data, startTime: startTimeISO, endTime: endTimeISO, image_url: imageUrl, isActive: data.isActive === true };
       const response = await updateEvent({ ...updatedData, eventID: event.eventID }).unwrap();
 
@@ -125,44 +123,49 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
       <div className="modal-box bg-gray-600 text-white w-full max-w-xs sm:max-w-lg mx-auto rounded-lg">
         <h3 className="font-bold text-lg mb-4">Update Event</h3>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <input {...register("title")} placeholder="Title" className="input text-gray-900" />
+          <input {...register("title")} placeholder="Title" className="input w-full" />
           {errors.title && <span className="text-sm text-red-700">{errors.title.message}</span>}
 
-          <input {...register("description")} placeholder="Description" className="input text-gray-900" />
+          <input {...register("description")} placeholder="Description" className="textarea w-full" />
           {errors.description && <span className="text-sm text-red-700">{errors.description.message}</span>}
 
-          <select {...register("category")} className="select w-full text-gray-900">
-            <option value="">Select Category</option>
-            <option value="Music">Music</option>
-            <option value="Art">Art</option>
-            <option value="Tech">Tech</option>
-            <option value="Sports">Sports</option>
-            <option value="Gaming">Gaming</option>
-            <option value="Food">Food</option>
-            <option value="Education">Education</option>
-            <option value="Festivals">Festivals</option>
+          <select
+            {...register("category")}
+            className="select select-bordered w-full text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+            <option disabled value="">
+              🎯 Select Category
+            </option>
+            <option value="Music">🎵 Music</option>
+            <option value="Art">🎨 Art</option>
+            <option value="Tech">💻 Tech</option>
+            <option value="Sports">🏀 Sports</option>
+            <option value="Gaming">🎮 Gaming</option>
+            <option value="Food">🍔 Food</option>
+            <option value="Education">📚 Education</option>
+            <option value="Festivals">🎉 Festivals</option>
           </select>
           {errors.category && <p className="text-red-500">{errors.category.message}</p>}
 
-          <input type="date" {...register("eventDate")} className="input text-gray-900" />
+          <input type="date" {...register("eventDate")} className="input w-full" />
           {errors.eventDate && <span className="text-sm text-red-700">{errors.eventDate.message}</span>}
 
-          <input type="time" {...register("startTime")} className="input text-gray-900" />
+          <input type="time" {...register("startTime")} className="input w-full" />
           {errors.startTime && <span className="text-sm text-red-700">{errors.startTime.message}</span>}
 
-          <input type="time" {...register("endTime")} className="input text-gray-900" />
+          <input type="time" {...register("endTime")} className="input w-full" />
           {errors.endTime && <span className="text-sm text-red-700">{errors.endTime.message}</span>}
 
-          <input {...register("ticketPrice")} placeholder="Ticket Price" className="input text-gray-900" />
+          <input {...register("ticketPrice")} placeholder="Ticket Price" className="input w-full" />
           {errors.ticketPrice && <span className="text-sm text-red-700">{errors.ticketPrice.message}</span>}
 
-          <input type="number" {...register("totalTickets")} placeholder="Total Tickets" className="input text-gray-900" />
+          <input type="number" {...register("totalTickets")} placeholder="Total Tickets" className="input w-full" />
           {errors.totalTickets && <span className="text-sm text-red-700">{errors.totalTickets.message}</span>}
 
-          <input type="number" {...register("availableTickets")} placeholder="Available Tickets" className="input text-gray-900" />
+          <input type="number" {...register("availableTickets")} placeholder="Available Tickets" className="input w-full" />
           {errors.availableTickets && <span className="text-sm text-red-700">{errors.availableTickets.message}</span>}
 
-          <input type="number" {...register("venueID")} placeholder="Venue ID" className="input text-gray-900" />
+          <input type="number" {...register("venueID")} placeholder="Venue ID" className="input w-full" />
           {errors.venueID && <span className="text-sm text-red-700">{errors.venueID.message}</span>}
 
           <div className="form-control">
@@ -195,11 +198,8 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
                         <span className="text-sm text-red-700">{errors.isActive.message}</span>
                     )}
 
-          <input type="text" {...register("createdAt")} placeholder="Created At" className="input text-gray-900" />
-          {errors.createdAt && <span className="text-sm text-red-700">{errors.createdAt.message}</span>}
-
-          <input type="text" {...register("updatedAt")} placeholder="Updated At" className="input text-gray-900" />
-          {errors.updatedAt && <span className="text-sm text-red-700">{errors.updatedAt.message}</span>}
+          {/* <input type="text" {...register("updatedAt")} placeholder="Updated At" className="input text-gray-900" />
+          {errors.updatedAt && <span className="text-sm text-red-700">{errors.updatedAt.message}</span>} */}
 
           <div className="flex flex-col gap-2">
           <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="file-input file-input-bordered file-input-primary w-full" />

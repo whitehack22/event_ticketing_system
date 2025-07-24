@@ -1,28 +1,28 @@
 import { toast } from "sonner";
-import { venuesAPI, type TVenue } from "../../../../Features/venues/venuesAPI";
+import { customerSupportAPI, type TCustomerSupport } from "../../../../Features/customerSupport/customerSupportAPI";
 
-type DeleteVenueProps = {
-    venue: TVenue | null;
+type DeleteTicketProps = {
+    ticket: TCustomerSupport | null;
 };
 
-const DeleteVenue = ({ venue }: DeleteVenueProps) => {
-    const [deleteVenue, { isLoading }] = venuesAPI.useDeleteVenueMutation(
-        { fixedCacheKey: "deleteVenue" } //used to prevent cache invalidation issues - in simple terms, it helps to keep the cache consistent
+const DeleteTicket = ({ ticket }: DeleteTicketProps) => {
+    const [deleteTicket, { isLoading }] = customerSupportAPI.useDeleteSupportTicketMutation(
+        { fixedCacheKey: "deleteTicket" } 
     );
 
     const handleDelete = async () => {
         try {
-            if (!venue) {
-                toast.error("No venue selected for deletion.");
+            if (!ticket) {
+                toast.error("No ticket selected for deletion.");
                 return;
             }
-            await deleteVenue(venue.venueID);
-            toast.success("Venue deleted successfully!");
+            await deleteTicket(ticket.ticketID);
+            toast.success("Ticket deleted successfully!");
             (document.getElementById('delete_modal') as HTMLDialogElement)?.close();
 
         } catch (error) {
-            console.error("Error deleting venue:", error);
-            toast.error("Failed to delete venue. Please try again.");
+            console.error("Error deleting ticket:", error);
+            toast.error("Failed to delete ticket. Please try again.");
 
         }
     };
@@ -31,9 +31,9 @@ const DeleteVenue = ({ venue }: DeleteVenueProps) => {
         <dialog id="delete_modal" className="modal sm:modal-middle">
             <div className="modal-box bg-gray-600 text-white w-full max-w-xs sm:max-w-lg mx-auto rounded-lg">
 
-                <h3 className="font-bold text-lg mb-4">Delete Venue</h3>
+                <h3 className="font-bold text-lg mb-4">Delete Customer Support Ticket</h3>
                 <p className="mb-6">
-                    Are you sure you want to delete <span className="font-semibold">{venue?.name}</span>?
+                    Are you sure you want to delete <span className="font-semibold">{ticket?.ticketID}</span>?
                 </p>
                 <div className="modal-action flex gap-4">
                     <button
@@ -60,4 +60,4 @@ const DeleteVenue = ({ venue }: DeleteVenueProps) => {
     );
 };
 
-export default DeleteVenue;
+export default DeleteTicket;

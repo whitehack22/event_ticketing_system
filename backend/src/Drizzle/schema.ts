@@ -103,6 +103,7 @@ export const CustomerSupportTicketsTable = pgTable("customer_support_tickets", {
   userID: integer("userID")
     .notNull()
     .references(() => UsersTable.userID, { onDelete: "cascade" }),
+  email: varchar("email", { length: 100 }).notNull(),
   subject: varchar("subject", { length: 200 }).notNull(),
   description: text("description").notNull(),
   status: TicketStatusEnum("status").default("Open"),

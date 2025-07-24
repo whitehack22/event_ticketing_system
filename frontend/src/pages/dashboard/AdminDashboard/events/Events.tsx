@@ -77,6 +77,8 @@ const Events = () => {
                 <th>Tickets</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Created At</th>
+                <th>Updated At</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -114,6 +116,28 @@ const Events = () => {
                       {event.isActive ? "Active" : "Inactive"}
                     </span>
                   </td>
+                  <td>
+                  {new Date(event.createdAt).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                    timeZone: "Africa/Nairobi", // Force EAT
+                  })}
+                </td>
+                  <td>
+                  {new Date(event.updatedAt).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                    timeZone: "Africa/Nairobi", // Force EAT
+                  })}
+                </td>
                   <td className="flex gap-2">
                     <button
                       className="btn btn-sm btn-primary mr-4 text-blue-500"

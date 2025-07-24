@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as supportTicketService from "./support.service";
+import { sendEmail } from "../mailer/mailer";
 
 // get all tickets
 export const getAllSupportTicketsController = async (_req: Request, res: Response) => {
@@ -43,13 +44,29 @@ export const getSupportTicketByIdController = async (req: Request, res: Response
 //Create a support ticket controller
 export const createSupportTicketController = async (req: Request, res: Response) => {
   try {
+    const ticket = req.body;
     const supportTicket = await supportTicketService.createSupportTicket(req.body);
 
     if (!supportTicket) {
       res.status(400).json({ message: "Support Ticket not created" });
       return;
     }
-    res.status(201).json({ message: "Support Ticket created successfully", supportTicket });
+
+    try {
+     // Send confirmation email
+    await sendEmail(
+      ticket.email,
+      "Support Ticket Received",
+      `Issue: ${ticket.subject}`,
+      `<p>Hi,</p><p>We have received your ticket:</p>
+       <p><strong>${ticket.subject}</strong></p>
+       <p>${ticket.description}</p>
+       <p>Our team will review it and get back to you.</p>`
+    );
+    } catch (emailError) {
+      console.log("Failed to send confirmation email:", emailError);
+    }
+    res.status(201).json({ message: "Support Ticket created and email sent", supportTicket });
     return;
   } catch (error: any) {
     console.log("Error creating support ticket:", error);
@@ -61,6 +78,7 @@ export const createSupportTicketController = async (req: Request, res: Response)
 //Update support ticket controller
 export const updateSupportTicketController = async (req: Request, res: Response) => {
   try {
+    const ticket = req.body;
     const id = parseInt(req.params.id);
 
     if (isNaN(id)) {
@@ -72,6 +90,23 @@ export const updateSupportTicketController = async (req: Request, res: Response)
     if (!updated) {
       return res.status(404).json({ message: "Support Ticket not found" });
     }
+
+    try {
+     // Send resolution email
+    if (ticket.status === "Resolved") {
+      await sendEmail(
+        ticket.email,
+        "Your Support Ticket is Resolved",
+        `Issue Resolved: ${ticket.subject}`,
+        `<p>Hi,</p><p>Your support ticket has been resolved:</p>
+         <p><strong>${ticket.subject}</strong></p>
+         <p>If you have further concerns, feel free to contact us again.</p>`
+      );
+    }
+    } catch (emailError) {
+      console.log("Failed to send resolution email:", emailError);
+    }
+
     res.status(200).json({ message: "Support Ticket updated successfully", supportTicket: updated });
     return;
   } catch (error: any) {

@@ -47,7 +47,6 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 //Create a user controller
 export const createUserController = async (req: Request, res: Response) => {
   try {
-
     const user = req.body;
     const password = user.password;
     const hashedPassword = await bcrypt.hashSync(password, 10)

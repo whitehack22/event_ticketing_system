@@ -32,13 +32,13 @@ export const adminDrawerData: DrawerData[] = [
     },
     {
         id: "bookings",
-        name: "Bookings",
+        name: "View Bookings",
         icon: IoTicketSharp,
         link: "bookings"
     },
     {
         id: "payments",
-        name: "Payments",
+        name: "View Payments",
         icon: MdOutlinePayment,
         link: "payments"
     },

@@ -8,7 +8,7 @@ export type TPayment = {
     bookingID: number;
     userID: number;
     amount: string;
-    paymentStatus: string;
+    paymentStatus:string;
     paymentDate: string;
     paymentMethod: string;
     transactionID: string;
@@ -40,7 +40,7 @@ export const paymentsAPI = createApi({
             }),
             invalidatesTags: ['Payments'] // invalidates the cache for the Payment tag when a new payment is created
         }),
-        getPayment: builder.query<{ data: TPayment[] }, void>({ //void means no parameters are needed to fetch the payments
+        getPayments: builder.query<{ data: TPayment[] }, void>({ //void means no parameters are needed to fetch the payments
             query: () => '/api/payments',
             providesTags: ['Payments'] // this tells RTK Query that this endpoint provides the Payment tag, so it can be used to invalidate the cache when a new payment is created
         }),

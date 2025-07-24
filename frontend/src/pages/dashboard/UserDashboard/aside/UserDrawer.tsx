@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { userDrawerData } from "./drawerData";
 import { useSelector } from "react-redux";
-import { FaBars, FaTimes } from "react-icons/fa";
 import type { RootState } from "../../../../app/store";
 
 type UserDrawerProps = {
@@ -10,7 +9,7 @@ type UserDrawerProps = {
 };
 
 
-const UserDrawer = ({ isSidebarOpen, onToggle }: UserDrawerProps) => {
+const UserDrawer = ({ isSidebarOpen }: UserDrawerProps) => {
   const user = useSelector((state: RootState) => state.user.user);
 
   return (
@@ -20,21 +19,15 @@ const UserDrawer = ({ isSidebarOpen, onToggle }: UserDrawerProps) => {
           <img
             src={user?.image_url || "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"}
             alt="Avatar"
-            className="rounded-full w-16 h-16 border-2 border-gray-600"
+            className="rounded-full w-16 h-16 border-2 border-gray-600 mr-4"
           />
           {isSidebarOpen && (
             <>
-              <h2 className="mt-2 text-sm font-semibold text-center">{user?.firstName} {user?.lastName}</h2>
-              <p className="text-xs text-gray-400 text-center">{user?.email}</p>
+              <h2 className="mt-2 text-sm font-semibold text-center mr-2">{user?.firstName} {user?.lastName}</h2>
+              <p className="text-xs text-gray-400 text-center mr-2">{user?.email}</p>
             </>
           )}
         </div>
-        <button
-          onClick={onToggle}
-          className="text-gray-300 hover:text-white ml-2"
-        >
-          {isSidebarOpen ? <FaTimes /> : <FaBars />}
-        </button>
       </div>
 
       <nav className="flex-1 overflow-y-auto mt-4">

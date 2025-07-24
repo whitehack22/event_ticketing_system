@@ -20,7 +20,7 @@ const UserDashboard = () => {
       {/* Top bar */}
       <div className="flex px-6 py-4 bg-gradient-to-b from-gray-800 to-gray-900 text-white items-center shadow">
         <button
-          className="mr-4 text-2xl"
+          className="mr-4 text-gray-300 hover:text-white text-2xl"
           onClick={handleDrawerToggle}
         >
           {isDrawerExpanded ? <IoCloseSharp /> : <FaBars />}
