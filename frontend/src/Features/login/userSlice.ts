@@ -4,7 +4,7 @@
 export type UserState = {
     token: string | null;
     user: {
-        userId: number;
+        userID: number;
         firstName: string;
         lastName: string;
         email: string;

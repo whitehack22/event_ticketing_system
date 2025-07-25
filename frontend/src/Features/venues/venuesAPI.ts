@@ -62,3 +62,5 @@ export const venuesAPI = createApi({
         }),
     })
 })
+
+export const { useGetVenuesQuery } = venuesAPI;

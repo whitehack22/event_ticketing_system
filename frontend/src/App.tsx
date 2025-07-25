@@ -17,6 +17,9 @@ import Bookings from './pages/dashboard/AdminDashboard/bookings/Bookings'
 import Payments from './pages/dashboard/AdminDashboard/payments/Payments'
 import Users from './pages/dashboard/AdminDashboard/manageUsers/Users'
 import CustomerSupport from './pages/dashboard/AdminDashboard/customerSupport/CustomerSupport'
+import AdminProfile from './pages/dashboard/AdminDashboard/profile/AdminProfile'
+import Analytics from './pages/dashboard/AdminDashboard/analytics/Analytics'
+import UserEvents from './pages/dashboard/UserDashboard/events/UserEvents'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -50,7 +53,7 @@ const router = createBrowserRouter([
        children: [
         {
           path: 'analytics',
-          element: <h1>Analytics</h1>
+          element: <Analytics />
         },
         {
           path: 'bookings',
@@ -78,7 +81,7 @@ const router = createBrowserRouter([
         },
         {
           path: 'profile',
-          element:<h1>Admin Profile</h1>
+          element:<AdminProfile />
         },
         
       ]
@@ -99,11 +102,7 @@ const router = createBrowserRouter([
         },
         {
           path: 'events',
-          element:<h1>Events</h1>
-        },
-        {
-          path: 'venues',
-          element:<h1>Venues</h1>
+          element:< UserEvents />
         },
         {  
           path: 'customerSupport',

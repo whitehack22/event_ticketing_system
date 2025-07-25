@@ -33,6 +33,7 @@ const Users = () => {
                         <thead className="bg-gray-700 text-white">
                             <tr>
 
+                                <th>User ID</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
@@ -47,6 +48,7 @@ const Users = () => {
                             {usersData.map((user: TUser) => (
                                 <tr key={user.userID} className="hover:bg-gray-100">
 
+                                    <td>{user.userID}</td>
                                     <td>{user.firstName}</td>
                                     <td>{user.lastName}</td>
                                     <td>{user.email}</td>

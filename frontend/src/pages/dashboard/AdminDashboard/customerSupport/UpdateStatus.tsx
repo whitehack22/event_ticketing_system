@@ -51,7 +51,12 @@ const UpdateStatus = ({ ticket }: UpdateStatusProps) => {
                 toast.error("No value selected for status change.");
                 return;
             }
-            await updateCustomerSupport({ ticketID: ticket.ticketID, status: data.status })
+            await updateCustomerSupport({
+            ticketID: ticket.ticketID,
+            status: data.status,
+            email: ticket.email,
+            subject: ticket.subject,
+            })
             toast.success("Status updated successfully!");
             reset();
             (document.getElementById('update_modal') as HTMLDialogElement)?.close();

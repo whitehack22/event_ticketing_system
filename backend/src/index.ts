@@ -8,6 +8,7 @@ import user from "./users/user.router";
 import { logger } from "./middleware/logger";
 import { rateLimiterMiddleware } from "./middleware/rateLimiter";
 import cors from "cors";
+import analytics from "./analytics/analytics.router";
 
 const initilizeApp = () => {
 const app = express()
@@ -19,7 +20,7 @@ app.use(express.json());
     methods: ["GET", "POST", "PUT", "DELETE"],
   }))
 app.use(logger)
-app.use(rateLimiterMiddleware)
+// app.use(rateLimiterMiddleware)
 
 //route
 booking(app);
@@ -28,6 +29,7 @@ event(app);
 payment(app);
 venue(app)
 user(app);
+analytics(app);
 
 app.get('/', (req, res) => {
   res.send('Hello Express!')

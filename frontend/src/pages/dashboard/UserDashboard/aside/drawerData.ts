@@ -2,7 +2,6 @@ import { FaUserCheck } from "react-icons/fa6";
 import { IoTicketSharp } from "react-icons/io5";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { MdOutlinePayment } from "react-icons/md";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdOutlineFestival } from "react-icons/md";
 
 
@@ -21,12 +20,6 @@ export const userDrawerData: DrawerData[] = [
         name: "Events",
         icon: MdOutlineFestival,
         link: "events"
-    },
-    {
-        id: "venues",
-        name: "Venues",
-        icon: FaMapMarkerAlt,
-        link: "venues"
     },
     {
         id: "bookings",
