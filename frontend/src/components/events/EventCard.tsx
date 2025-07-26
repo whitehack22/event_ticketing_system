@@ -28,14 +28,20 @@ const EventCard = ({ event, venue }: Props) => {
             {new Date(event.eventDate).toLocaleDateString()}
           </p>
           <p>
-            <strong>Time:</strong> {event.startTime} - {event.endTime}
+            <strong>Time:</strong> {new Date(event.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </p>
           {venue && (
             <p>
               <strong>Venue:</strong> {venue.name}, {venue.address}
             </p>
           )}
+          {venue && (
+            <p>
+              <strong>Phone Number:</strong> {venue.contactNumber}
+            </p>
+          )}
           <p>
+            
             <strong>Ticket Price:</strong> Ksh {event.ticketPrice}
           </p>
           <p>
@@ -44,7 +50,7 @@ const EventCard = ({ event, venue }: Props) => {
         </div>
 
         <Link
-          to={`/bookings/${event.eventID}`}
+          to={`/user/dashboard/bookings/${event.eventID}`}
           className="inline-block w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded"
         >
           Book Now

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useGetEventsQuery } from "../../../../Features/events/eventsAPI";
-import { useGetVenuesQuery } from "../../../../Features/venues/venuesAPI";
+import { eventsAPI } from "../../../../Features/events/eventsAPI";
+import { venuesAPI } from "../../../../Features/venues/venuesAPI";
 import EventCard from "../../../../components/events/EventCard";
 
 const UserEvents = () => {
-  const { data: eventsData, isLoading: eventsLoading } = useGetEventsQuery();
-  const { data: venuesData, isLoading: venuesLoading } = useGetVenuesQuery();
+  const { data: eventsData, isLoading: eventsLoading } = eventsAPI.useGetEventsQuery();
+  const { data: venuesData, isLoading: venuesLoading } = venuesAPI.useGetVenuesQuery();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");

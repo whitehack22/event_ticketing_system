@@ -20,6 +20,9 @@ import CustomerSupport from './pages/dashboard/AdminDashboard/customerSupport/Cu
 import AdminProfile from './pages/dashboard/AdminDashboard/profile/AdminProfile'
 import Analytics from './pages/dashboard/AdminDashboard/analytics/Analytics'
 import UserEvents from './pages/dashboard/UserDashboard/events/UserEvents'
+import CreateBookings from './pages/dashboard/UserDashboard/bookings/CreateBookings'
+import UserProfile from './pages/dashboard/UserDashboard/profile/UserProfile'
+import UserCustomerSupport from './pages/dashboard/UserDashboard/customerSupport/UserCustomerSupport'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -97,6 +100,10 @@ const router = createBrowserRouter([
           element: <h1>Bookings</h1>
         },
         {
+          path: 'bookings/:eventID',
+          element: < CreateBookings />
+        },
+        {
           path: 'payments',
           element: <h1>Payments</h1>
         },
@@ -106,11 +113,11 @@ const router = createBrowserRouter([
         },
         {  
           path: 'customerSupport',
-          element: <h1>User Customer Support</h1>
+          element: < UserCustomerSupport />
         },
         {
           path: 'profile',
-          element:<h1>User Profile</h1>
+          element:<UserProfile />
         },
         
       ]

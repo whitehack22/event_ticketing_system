@@ -70,3 +70,5 @@ export const bookingsAPI = createApi({
     }),
     })
 })
+
+export const { useCreateBookingMutation } = bookingsAPI;

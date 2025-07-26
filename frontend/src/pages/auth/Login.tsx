@@ -48,9 +48,9 @@ function Login () {
             toast.success("Login successful!");
 
             if (response.user.role === 'admin') {
-                navigate('/admin/dashboard/');
+                navigate('/admin/dashboard/events');
             } else if (response.user.role === 'user') {
-                navigate('/user/dashboard/');
+                navigate('/user/dashboard/events');
             }
 
         } catch (error) {
