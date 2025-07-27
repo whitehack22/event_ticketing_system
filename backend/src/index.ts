@@ -9,6 +9,7 @@ import { logger } from "./middleware/logger";
 import { rateLimiterMiddleware } from "./middleware/rateLimiter";
 import cors from "cors";
 import analytics from "./analytics/analytics.router";
+import mpesaRouter from "./mpesa/mpesa.router";
 
 const initilizeApp = () => {
 const app = express()
@@ -30,6 +31,7 @@ payment(app);
 venue(app)
 user(app);
 analytics(app);
+mpesaRouter(app);
 
 app.get('/', (req, res) => {
   res.send('Hello Express!')

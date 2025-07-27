@@ -137,3 +137,29 @@ export const getPaymentsByUserIdController = async (req: Request, res: Response)
     return;
   }
 };
+
+// Get payments by bookingID
+export const getPaymentsByBookingIdController = async (req: Request, res: Response) => {
+  try {
+    const bookingID = Number(req.params.bookingID);
+
+    if (isNaN(bookingID)) {
+      res.status(400).json({ error: "Invalid booking ID" });
+      return;
+    }
+
+    const payments = await paymentService.getPaymentByBookingId(bookingID);
+
+    if (!payments || payments.length === 0) {
+      res.status(404).json({ message: "No payments found for this booking." });
+      return;
+    }
+
+    res.status(200).json({ data: payments });
+    return;
+  } catch (error: any) {
+    console.log("Error fetching payments by booking ID:", error);
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+    return;
+  }
+};

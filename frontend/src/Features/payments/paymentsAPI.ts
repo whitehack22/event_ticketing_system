@@ -11,7 +11,6 @@ export type TPayment = {
     paymentStatus:string;
     paymentDate: string;
     paymentMethod: string;
-    transactionID: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -67,6 +66,11 @@ export const paymentsAPI = createApi({
         // get payment by User ID
         getPaymentByUserId: builder.query<{ data: TPayment[] }, number>({
         query: (userId) => `/api/payments/user/${userId}`,
+        providesTags: ['Payments'],
+    }),
+        // get payment by Booking ID
+        getPaymentByBookingId: builder.query<{ data: TPayment[] }, number>({
+        query: (bookingID) => `/api/payments/booking/${bookingID}`,
         providesTags: ['Payments'],
     }),
     })

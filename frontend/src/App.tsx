@@ -20,9 +20,12 @@ import CustomerSupport from './pages/dashboard/AdminDashboard/customerSupport/Cu
 import AdminProfile from './pages/dashboard/AdminDashboard/profile/AdminProfile'
 import Analytics from './pages/dashboard/AdminDashboard/analytics/Analytics'
 import UserEvents from './pages/dashboard/UserDashboard/events/UserEvents'
-import CreateBookings from './pages/dashboard/UserDashboard/bookings/CreateBookings'
 import UserProfile from './pages/dashboard/UserDashboard/profile/UserProfile'
 import UserCustomerSupport from './pages/dashboard/UserDashboard/customerSupport/UserCustomerSupport'
+import BookEvent from './pages/dashboard/UserDashboard/bookings/BookEvent'
+import Checkout from './pages/dashboard/UserDashboard/bookings/Checkout'
+import Receipt from './pages/dashboard/UserDashboard/payments/Receipt'
+import PaymentHistory from './pages/dashboard/UserDashboard/payments/PaymentHistory'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -96,16 +99,20 @@ const router = createBrowserRouter([
        children: [
         
         {
-          path: 'bookings',
-          element: <h1>Bookings</h1>
+          path: 'user/dashboard/checkout/${booking.bookingID}',
+          element: <Checkout />
         },
         {
-          path: 'bookings/:eventID',
-          element: < CreateBookings />
+          path: 'user/dashboard/bookings/${event.eventID}',
+          element: < BookEvent />
         },
         {
-          path: 'payments',
-          element: <h1>Payments</h1>
+          path: 'payment/receipt/${bookingID}',
+          element: <Receipt />
+        },
+        {
+          path: '/user/payments',
+          element: <PaymentHistory />
         },
         {
           path: 'events',

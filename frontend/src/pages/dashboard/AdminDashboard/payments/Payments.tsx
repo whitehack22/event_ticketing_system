@@ -33,7 +33,6 @@ const Payments = () => {
                 <th>Payment Status</th>
                 <th>Payment Date</th>
                 <th>Payment Method</th>
-                <th>Transaction ID</th>
                 <th>Created At</th>
                 <th>Updated At</th>
               </tr>
@@ -52,7 +51,6 @@ const Payments = () => {
                 </td>
                   <td>{new Date(payment.paymentDate).toLocaleDateString()}</td>
                   <td>{payment.paymentMethod}</td>
-                  <td>{payment.transactionID}</td>
                   <td>
                   {new Date(payment.createdAt).toLocaleString("en-GB", {
                     day: "2-digit",

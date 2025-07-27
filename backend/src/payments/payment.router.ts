@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { createPaymentController, deletePaymentController, getAllPaymentsController, 
-    getPaymentByIdController, getPaymentsByUserIdController, updatePaymentController } from "./payment.controller";
+    getPaymentByIdController, getPaymentsByBookingIdController, getPaymentsByUserIdController, updatePaymentController } from "./payment.controller";
 
 
 
@@ -66,6 +66,17 @@ const payment = (app: Express) => {
          async (req, res, next) => {
              try {
                  await getPaymentsByUserIdController(req, res);
+            } catch (error) {
+                 next(error);
+             }
+            }
+         );
+
+    // Get payments by booking ID
+     app.route("/api/payments/booking/:bookingID").get(
+         async (req, res, next) => {
+             try {
+                 await getPaymentsByBookingIdController(req, res);
             } catch (error) {
                  next(error);
              }

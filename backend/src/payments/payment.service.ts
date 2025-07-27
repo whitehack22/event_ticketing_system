@@ -55,4 +55,12 @@ export const getPaymentByUserId = async (userID: number) => {
   return payments;
 };
 
+// Get payments by booking ID
+export const getPaymentByBookingId = async (bookingID: number) => {
+  const payments = await db.query.PaymentsTable.findMany({
+    where: eq(PaymentsTable.bookingID, bookingID),
+  });
+  return payments;
+};
+
 
