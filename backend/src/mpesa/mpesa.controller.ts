@@ -50,7 +50,7 @@ export const initiateSTKPush = async (req: Request, res: Response) => {
 
     const { CheckoutRequestID } = data;
 
-    // ✅ Save CheckoutRequestID to booking
+    //  Save CheckoutRequestID to booking
     await db
       .update(BookingsTable)
       .set({ checkoutRequestID: CheckoutRequestID })
@@ -77,7 +77,7 @@ export const mpesaCallback = async (req: Request, res: Response) => {
   const { ResultCode, CallbackMetadata, CheckoutRequestID } = callback;
 
   if (ResultCode !== 0) {
-    console.warn("🟡 M-PESA Payment not completed. Code:", ResultCode);
+    console.warn(" M-PESA Payment not completed. Code:", ResultCode);
     res.status(200).json({ message: "M-PESA payment not successful" });
     return;
   }
@@ -92,7 +92,7 @@ export const mpesaCallback = async (req: Request, res: Response) => {
   const phone = metadata["PhoneNumber"];
 
   try {
-    // 1. 🔍 Find the booking using CheckoutRequestID
+    // 1. Find the booking using CheckoutRequestID
     const [booking] = await db
       .select()
       .from(BookingsTable)
@@ -103,7 +103,7 @@ export const mpesaCallback = async (req: Request, res: Response) => {
       return;
     }
 
-    // 2. 💾 Insert payment record
+    // 2.  Insert payment record
     await db.insert(PaymentsTable).values({
       bookingID: booking.bookingID,
       userID: booking.userID,

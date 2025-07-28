@@ -22,8 +22,6 @@ import Analytics from './pages/dashboard/AdminDashboard/analytics/Analytics'
 import UserEvents from './pages/dashboard/UserDashboard/events/UserEvents'
 import UserProfile from './pages/dashboard/UserDashboard/profile/UserProfile'
 import UserCustomerSupport from './pages/dashboard/UserDashboard/customerSupport/UserCustomerSupport'
-import BookEvent from './pages/dashboard/UserDashboard/bookings/BookEvent'
-import Checkout from './pages/dashboard/UserDashboard/bookings/Checkout'
 import Receipt from './pages/dashboard/UserDashboard/payments/Receipt'
 import PaymentHistory from './pages/dashboard/UserDashboard/payments/PaymentHistory'
 
@@ -98,14 +96,6 @@ const router = createBrowserRouter([
       element: isUser ? <UserDashboard /> : <Login />,
        children: [
         
-        {
-          path: 'checkout/:bookingID',
-          element: <Checkout />
-        },
-        {
-          path: 'bookings/:eventID',
-          element: < BookEvent />
-        },
         {
           path: 'payment/receipt/:bookingID',
           element: <Receipt />

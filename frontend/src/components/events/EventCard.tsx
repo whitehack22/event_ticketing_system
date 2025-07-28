@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import BookEventModal from "../../pages/dashboard/UserDashboard/bookings/BookEventModal";
 import { type TEvent } from "../../Features/events/eventsAPI";
 import { type TVenue } from "../../Features/venues/venuesAPI";
+
 
 type Props = {
   event: TEvent;
@@ -8,16 +10,16 @@ type Props = {
 };
 
 const EventCard = ({ event, venue }: Props) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      {/* Image Section */}
+    <div className="bg-white rounded-lg shadow-md overflow-hidden relative">
       <img
         src={event.image_url || "https://via.placeholder.com/300x200"}
         alt={event.title}
         className="w-full h-48 object-cover"
       />
 
-      {/* Info Section */}
       <div className="p-4 space-y-2">
         <h3 className="text-xl font-bold text-gray-800">{event.title}</h3>
         <p className="text-sm text-gray-500 italic">{event.category}</p>
@@ -49,13 +51,17 @@ const EventCard = ({ event, venue }: Props) => {
           </p>
         </div>
 
-        <Link
-          to={`/user/dashboard/bookings/${event.eventID}`}
-          className="inline-block w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded"
+        <button
+          onClick={() => setShowModal(true)}
+          className="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded"
         >
           Book Now
-        </Link>
+        </button>
       </div>
+
+      {showModal && (
+        <BookEventModal event={event} onClose={() => setShowModal(false)} />
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { FaUserCheck } from "react-icons/fa6";
-import { IoTicketSharp } from "react-icons/io5";
+
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdOutlineFestival } from "react-icons/md";
@@ -21,12 +21,6 @@ export const userDrawerData: DrawerData[] = [
         name: "Events",
         icon: MdOutlineFestival,
         link: "events"
-    },
-    {
-        id: "bookings",
-        name: "Bookings",
-        icon: IoTicketSharp,
-        link: "bookings"
     },
     {
         id: "receipt",

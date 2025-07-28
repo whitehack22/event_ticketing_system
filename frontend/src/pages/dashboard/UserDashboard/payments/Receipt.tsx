@@ -1,17 +1,20 @@
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../../app/store";
 import { paymentsAPI } from "../../../../Features/payments/paymentsAPI";
 
 const Receipt = () => {
   const { bookingID } = useParams();
+  const user = useSelector((state: RootState) => state.user.user);
+  const userID = user?.userID;
 
-  const { data, isLoading, error } = paymentsAPI.useGetPaymentByUserIdQuery(
-    Number(localStorage.getItem("userID")) // or get it from Redux
-  );
+  const { data, isLoading, error } = paymentsAPI.useGetPaymentByUserIdQuery(userID || 0);
 
   const payment = data?.data.find(
     (p) => p.bookingID === Number(bookingID)
   );
 
+  if (!userID || !bookingID) return <p>Missing booking or user info.</p>;
   if (isLoading) return <p>Loading receipt...</p>;
   if (error || !payment) return <p>No receipt found for this booking.</p>;
 
