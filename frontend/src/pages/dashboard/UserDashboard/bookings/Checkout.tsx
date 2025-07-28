@@ -43,7 +43,7 @@ const Checkout = () => {
           clearInterval(interval);
           setPaymentComplete(true);
           toast.success(" Payment successful!");
-          navigate(`/payment/receipt/${bookingID}`);
+          navigate(`user/dashboard/payment/receipt/${bookingID}`);
         }
       } catch (err) {
         console.warn("Polling error:", err);

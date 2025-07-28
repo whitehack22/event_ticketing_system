@@ -99,19 +99,19 @@ const router = createBrowserRouter([
        children: [
         
         {
-          path: 'user/dashboard/checkout/${booking.bookingID}',
+          path: 'checkout/:bookingID',
           element: <Checkout />
         },
         {
-          path: 'user/dashboard/bookings/${event.eventID}',
+          path: 'bookings/:eventID',
           element: < BookEvent />
         },
         {
-          path: 'payment/receipt/${bookingID}',
+          path: 'payment/receipt/:bookingID',
           element: <Receipt />
         },
         {
-          path: '/user/payments',
+          path: 'payments',
           element: <PaymentHistory />
         },
         {

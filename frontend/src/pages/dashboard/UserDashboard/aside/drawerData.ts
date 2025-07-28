@@ -3,6 +3,7 @@ import { IoTicketSharp } from "react-icons/io5";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdOutlineFestival } from "react-icons/md";
+import { FaReceipt } from "react-icons/fa";
 
 
 export type DrawerData = {
@@ -28,8 +29,14 @@ export const userDrawerData: DrawerData[] = [
         link: "bookings"
     },
     {
+        id: "receipt",
+        name: "Payment Receipt",
+        icon: FaReceipt,
+        link: "payment/receipt/:bookingID"
+    },
+    {
         id: "payments",
-        name: "Payments",
+        name: "Payment History",
         icon: MdOutlinePayment,
         link: "payments"
     },
