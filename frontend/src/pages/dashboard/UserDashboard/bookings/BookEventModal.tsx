@@ -18,6 +18,7 @@ const BookEventModal = ({ event, onClose }: Props) => {
 
   const [showCheckout, setShowCheckout] = useState(false);
   const [bookingID, setBookingID] = useState<number | null>(null);
+  const [totalAmount, setTotalAmount] = useState<string>("");
 
   const handleBooking = async () => {
     if (!user || !event) return;
@@ -38,8 +39,10 @@ const BookEventModal = ({ event, onClose }: Props) => {
       }).unwrap();
 
       toast.success("Booking created! Proceed to checkout.");
+      console.log("Booking created:", booking);
       setBookingID(booking.bookingID);
-      setShowCheckout(true); 
+      setTotalAmount(totalAmount); // store total
+      setShowCheckout(true);
     } catch (error) {
       toast.error("Failed to create booking. Try again.");
     }
@@ -87,12 +90,14 @@ const BookEventModal = ({ event, onClose }: Props) => {
       {showCheckout && bookingID !== null && (
         <CheckoutModal
           bookingID={bookingID}
+          amount={parseFloat(totalAmount)}
           onClose={() => {
             setShowCheckout(false);
-            onClose(); // Also close the booking modal when checkout is done
+            onClose();
           }}
         />
       )}
+
     </>
   );
 };

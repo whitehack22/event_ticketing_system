@@ -4,25 +4,19 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../../app/store";
 import { ApiDomain } from "../../../../utils/APIDomain";
 import { toast } from "sonner";
-import { bookingsAPI } from "../../../../Features/booking/bookingsAPI";
 
 type Props = {
   bookingID: number;
+  amount: number;
   onClose: () => void;
 };
 
-const CheckoutModal = ({ bookingID, onClose }: Props) => {
+const CheckoutModal = ({ bookingID, amount, onClose }: Props) => {
   const { token, user } = useSelector((state: RootState) => state.user);
   const [phone, setPhone] = useState("");
   const [processing, setProcessing] = useState(false);
   const [response, setResponse] = useState("");
   const [paymentComplete, setPaymentComplete] = useState(false);
-
-  const { data: bookingData, isLoading: isBookingLoading } =
-    bookingsAPI.useGetBookingByIdQuery(bookingID);
-
-  const booking = bookingData?.data[0];
-  const amount = Number(booking?.totalAmount || 0);
 
   // POLLING
   useEffect(() => {
@@ -56,7 +50,7 @@ const CheckoutModal = ({ bookingID, onClose }: Props) => {
   }, [bookingID, token]);
 
   const handlePayment = async () => {
-    if (!booking || !phone) return;
+    if (!phone) return;
     if (!token || !user) {
       toast.error("You must be logged in to pay.");
       return;
@@ -103,46 +97,40 @@ const CheckoutModal = ({ bookingID, onClose }: Props) => {
           Checkout with M-Pesa
         </h2>
 
-        {isBookingLoading ? (
-          <p className="text-center text-gray-600">Loading booking...</p>
-        ) : (
-          <>
-            <p className="mb-2 text-center text-lg font-medium">
-              <strong>Total:</strong> KES {amount.toFixed(2)}
-            </p>
+        <p className="mb-2 text-center text-lg font-medium">
+          <strong>Total:</strong> KES {amount.toFixed(2)}
+        </p>
 
-            <label className="block font-medium mb-2">M-Pesa Phone Number</label>
-            <input
-              type="tel"
-              placeholder="2547XXXXXXXX"
-              className="input input-bordered w-full mb-4"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              disabled={processing || paymentComplete}
-            />
+        <label className="block font-medium mb-2">M-Pesa Phone Number</label>
+        <input
+          type="tel"
+          placeholder="2547XXXXXXXX"
+          className="input input-bordered w-full mb-4"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          disabled={processing || paymentComplete}
+        />
 
-            <button
-              onClick={handlePayment}
-              disabled={processing || paymentComplete}
-              className="btn btn-primary w-full"
-            >
-              {paymentComplete
-                ? "✅ Paid"
-                : processing
-                ? "Processing..."
-                : "Pay Now"}
-            </button>
+        <button
+          onClick={handlePayment}
+          disabled={processing || paymentComplete}
+          className="btn btn-primary w-full"
+        >
+          {paymentComplete
+            ? "✅ Paid"
+            : processing
+            ? "Processing..."
+            : "Pay Now"}
+        </button>
 
-            {response && (
-              <p className="mt-4 text-center text-green-600 text-sm">{response}</p>
-            )}
+        {response && (
+          <p className="mt-4 text-center text-green-600 text-sm">{response}</p>
+        )}
 
-            {paymentComplete && (
-              <p className="mt-4 text-center text-blue-600 text-sm font-semibold">
-                Payment completed. Thank you!
-              </p>
-            )}
-          </>
+        {paymentComplete && (
+          <p className="mt-4 text-center text-blue-600 text-sm font-semibold">
+            Payment completed. Thank you!
+          </p>
         )}
       </div>
     </div>
