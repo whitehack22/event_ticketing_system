@@ -9,6 +9,7 @@ import { customerSupportAPI } from '../Features/customerSupport/customerSupportA
 import { paymentsAPI } from '../Features/payments/paymentsAPI'
 import { eventsAPI } from '../Features/events/eventsAPI'
 import { venuesAPI } from '../Features/venues/venuesAPI'
+import { mpesaAPI } from '../Features/mpesa/mpesaAPI'
 
 
 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({ //combining all reducers into one root red
     [paymentsAPI.reducerPath]: paymentsAPI.reducer,
     [eventsAPI.reducerPath]: eventsAPI.reducer,
     [venuesAPI.reducerPath]: venuesAPI.reducer,
+    [mpesaAPI.reducerPath]: mpesaAPI.reducer,
     user: userSlice
 })
 
@@ -47,7 +49,8 @@ export const store = configureStore({
         .concat(customerSupportAPI.middleware) 
         .concat(paymentsAPI.middleware) 
         .concat(eventsAPI.middleware) 
-        .concat(venuesAPI.middleware) 
+        .concat(venuesAPI.middleware)
+        .concat(mpesaAPI.middleware) 
 })
 
 export const persistedStore = persistStore(store) // needed for persisting the store to local storage

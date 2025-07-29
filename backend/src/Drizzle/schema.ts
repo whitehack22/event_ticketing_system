@@ -75,7 +75,6 @@ export const BookingsTable = pgTable("bookings", {
   totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
   bookingDate: timestamp("booking_date").defaultNow().notNull(),
   bookingStatus: varchar("booking_status", { length: 20 }).default("Confirmed"),
-  checkoutRequestID: varchar("checkout_request_id", { length: 100 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -90,7 +89,7 @@ export const PaymentsTable = pgTable("payments", {
     .notNull()
     .references(() => UsersTable.userID, { onDelete: "cascade" }),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
-  paymentStatus: PaymentStatusEnum("payment_status").default("Pending"),
+  paymentStatus: PaymentStatusEnum("payment_status").default("Completed"),
   paymentDate: timestamp("payment_date").defaultNow().notNull(),
   paymentMethod: varchar("payment_method", { length: 50 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),

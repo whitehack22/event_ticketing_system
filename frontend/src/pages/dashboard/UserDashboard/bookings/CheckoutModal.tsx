@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../../app/store";
-import { ApiDomain } from "../../../../utils/APIDomain";
 import { toast } from "sonner";
+import { mpesaAPI } from "../../../../Features/mpesa/mpesaAPI";
 
 type Props = {
   bookingID: number;
@@ -14,72 +13,43 @@ type Props = {
 const CheckoutModal = ({ bookingID, amount, onClose }: Props) => {
   const { token, user } = useSelector((state: RootState) => state.user);
   const [phone, setPhone] = useState("");
-  const [processing, setProcessing] = useState(false);
   const [response, setResponse] = useState("");
   const [paymentComplete, setPaymentComplete] = useState(false);
 
-  // POLLING
+  const [initiateSTK, { isLoading: isInitiating }] = mpesaAPI.useInitiateSTKMutation();
+  const { data: paymentData } = mpesaAPI.useGetPaymentStatusQuery(bookingID, {
+    pollingInterval: 5000,
+    skip: !bookingID,
+  });
+
   useEffect(() => {
-    if (!bookingID) return;
-
-    const interval = setInterval(async () => {
-      try {
-        const { data } = await axios.get(
-          `${ApiDomain}/api/payment/booking/${bookingID}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const status = data?.data[0]?.paymentStatus;
-        if (status === "Completed") {
-          clearInterval(interval);
-          setPaymentComplete(true);
-          toast.success("Payment successful!");
-          onClose(); // Close modal
-          window.location.href = `/user/dashboard/payment/receipt/${bookingID}`;
-        }
-      } catch (err) {
-        console.warn("Polling error:", err);
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [bookingID, token]);
+    const status = paymentData?.data?.[0]?.paymentStatus;
+    if (status === "Completed") {
+      setPaymentComplete(true);
+      toast.success("Payment successful!");
+      onClose();
+      window.location.href = `/user/dashboard/payment/receipt/${bookingID}`;
+    }
+  }, [paymentData]);
 
   const handlePayment = async () => {
-    if (!phone) return;
+    if (!phone) {
+      toast.error("Please enter your phone number.");
+      return;
+    }
+
     if (!token || !user) {
       toast.error("You must be logged in to pay.");
       return;
     }
 
     try {
-      setProcessing(true);
-      const { data } = await axios.post(
-        `${ApiDomain}/api/mpesa/stk`,
-        {
-          bookingID,
-          phone,
-          amount,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      setResponse(data.CustomerMessage || "STK push sent.");
+      const result = await initiateSTK({ phone, amount, bookingID }).unwrap();
+      setResponse(result?.paymentStatus || "STK push sent.");
       toast.info("STK push sent. Complete payment on your phone.");
-    } catch (err) {
+    } catch (err: any) {
       toast.error("Failed to initiate payment.");
       console.error(err);
-    } finally {
-      setProcessing(false);
     }
   };
 
@@ -108,20 +78,31 @@ const CheckoutModal = ({ bookingID, amount, onClose }: Props) => {
           className="input input-bordered w-full mb-4"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          disabled={processing || paymentComplete}
+          disabled={isInitiating || paymentComplete}
         />
 
         <button
           onClick={handlePayment}
-          disabled={processing || paymentComplete}
-          className="btn btn-primary w-full"
+          disabled={isInitiating || paymentComplete}
+          className="btn btn-primary w-full flex items-center justify-center"
         >
-          {paymentComplete
-            ? "✅ Paid"
-            : processing
-            ? "Processing..."
-            : "Pay Now"}
+          {paymentComplete ? (
+            "✅ Paid"
+          ) : isInitiating ? (
+            <>
+              <span className="loading loading-spinner loading-sm mr-2"></span>
+              Processing...
+            </>
+          ) : (
+            "Pay Now"
+          )}
         </button>
+
+        {isInitiating && (
+          <p className="mt-4 text-center text-gray-500 text-sm italic">
+            Sending STK Push to your phone...
+          </p>
+        )}
 
         {response && (
           <p className="mt-4 text-center text-green-600 text-sm">{response}</p>

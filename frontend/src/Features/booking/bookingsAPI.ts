@@ -11,7 +11,6 @@ export type TBooking = {
     totalAmount: string;
     bookingDate: string;
     bookingStatus: string;
-    checkoutRequestID: string;
     createdAt: string;
     updatedAt: string;
 }
