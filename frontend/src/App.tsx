@@ -24,6 +24,7 @@ import UserProfile from './pages/dashboard/UserDashboard/profile/UserProfile'
 import UserCustomerSupport from './pages/dashboard/UserDashboard/customerSupport/UserCustomerSupport'
 import Receipt from './pages/dashboard/UserDashboard/payments/Receipt'
 import PaymentHistory from './pages/dashboard/UserDashboard/payments/PaymentHistory'
+import PaymentsPage from './pages/dashboard/UserDashboard/payments/PaymentsPage'
 
 function App() {
    const isAdmin = useSelector((state: RootState) => state.user.user?.role === 'admin');
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
       element: isUser ? <UserDashboard /> : <Login />,
        children: [
         
+        {
+          path: 'payment/:bookingID',
+          element: <PaymentsPage />
+        },
         {
           path: 'payment/receipt/:bookingID',
           element: <Receipt />

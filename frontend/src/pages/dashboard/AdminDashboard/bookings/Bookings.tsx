@@ -25,7 +25,6 @@ const Bookings = () => {
                 <th>Total Amount</th>
                 <th>Booking Date</th>
                 <th>Status</th>
-                <th>Checkout ID</th>
                 <th>Created At</th>
                 <th>Updated At</th>
               </tr>
@@ -47,7 +46,6 @@ const Bookings = () => {
                     </span>
                   </td>
                   <td>
-                  <td>{booking.checkoutRequestID}</td>
                   {new Date(booking.createdAt).toLocaleString("en-GB", {
                     day: "2-digit",
                     month: "2-digit",

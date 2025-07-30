@@ -1,104 +1,102 @@
-import { useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { type RootState } from "../../../../app/store";
 import { bookingsAPI } from "../../../../Features/booking/bookingsAPI";
-import type { RootState } from "../../../../app/store";
 import { toast } from "sonner";
-import type { TEvent } from "../../../../Features/events/eventsAPI";
-import CheckoutModal from "../bookings/CheckoutModal";
+import { type TEvent } from "../../../../Features/events/eventsAPI";
+import { useNavigate } from "react-router";
 
 type Props = {
   event: TEvent;
   onClose: () => void;
 };
 
+type BookingForm = {
+  numberOfTickets: number;
+};
+
 const BookEventModal = ({ event, onClose }: Props) => {
-  const user = useSelector((state: RootState) => state.user.user);
-  const [tickets, setTickets] = useState(1);
+  const { register, handleSubmit, watch, reset } = useForm<BookingForm>({
+    defaultValues: {
+      numberOfTickets: 1,
+    },
+  });
+  const navigate = useNavigate();
+  const userID = useSelector((state: RootState) => state.user.user?.userID);
   const [createBooking, { isLoading }] = bookingsAPI.useCreateBookingMutation();
 
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [bookingID, setBookingID] = useState<number | null>(null);
-  const [totalAmount, setTotalAmount] = useState<string>("");
+  const numberOfTickets = watch("numberOfTickets");
+  const totalAmount = numberOfTickets * event.ticketPrice;
 
-  const handleBooking = async () => {
-    if (!user || !event) return;
-
-    if (tickets > event.availableTickets) {
-      toast.warning(`Only ${event.availableTickets} tickets available.`);
+  const onSubmit: SubmitHandler<BookingForm> = async (data) => {
+    if (!userID) {
+      toast.error("You must be logged in to book.");
       return;
     }
 
-    const totalAmount = (Number(tickets) * Number(event.ticketPrice)).toFixed(2);
-
     try {
-      const booking = await createBooking({
-        userID: user.userID,
+      const response = await createBooking({
+        userID,
         eventID: event.eventID,
-        numberOfTickets: tickets,
-        totalAmount,
+        numberOfTickets: data.numberOfTickets,
+        totalAmount: totalAmount.toFixed(2),
+        bookingStatus: "Confirmed",
       }).unwrap();
 
-      toast.success("Booking created! Proceed to checkout.");
-      console.log("Booking created:", booking);
-      setBookingID(booking.bookingID);
-      setTotalAmount(totalAmount); // store total
-      setShowCheckout(true);
+      toast.success("Booking successful!");
+      console.log("Booking Response:", response);
+      reset();
+      onClose();
+      navigate(`/user/dashboard/payment/${response.booking.bookingID}`);
     } catch (error) {
-      toast.error("Failed to create booking. Try again.");
+      console.error(error);
+      toast.error("Booking failed. Try again.");
     }
   };
 
   return (
-    <>
-      {/* Booking Modal */}
-      <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-md">
-          <h2 className="text-xl font-bold mb-4">Book "{event.title}"</h2>
-          <p className="mb-2 text-gray-700">
-            <strong>Price:</strong> Ksh {event.ticketPrice}
-          </p>
-          <p className="mb-2 text-gray-700">
-            <strong>Available Tickets:</strong> {event.availableTickets}
-          </p>
+    <dialog id="booking_modal" className="modal modal-open">
+      <div className="modal-box bg-white text-gray-900 max-w-md">
+        <h3 className="font-bold text-lg mb-4">Book Tickets for {event.title}</h3>
 
-          <label className="block font-medium mb-1">Number of Tickets</label>
-          <input
-            type="number"
-            value={tickets}
-            min={1}
-            max={event.availableTickets}
-            onChange={(e) => setTickets(Number(e.target.value))}
-            className="input input-bordered w-full mb-4"
-          />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="label">Number of Tickets</label>
+            <input
+              type="number"
+              min={1}
+              max={event.availableTickets}
+              {...register("numberOfTickets", { required: true, min: 1 })}
+              className="input input-bordered w-full"
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              Available: {event.availableTickets}
+            </p>
+          </div>
 
-          <div className="flex justify-between items-center">
-            <button className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleBooking}
-              disabled={isLoading}
-            >
+          <div>
+            <label className="label">Total Cost</label>
+            <p className="font-semibold text-lg">Ksh {totalAmount}</p>
+          </div>
+
+          <div className="modal-action flex justify-between">
+            <button type="submit" className="btn btn-primary" disabled={isLoading}>
               {isLoading ? "Booking..." : "Confirm Booking"}
             </button>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                reset();
+                onClose();
+              }}
+            >
+              Cancel
+            </button>
           </div>
-        </div>
+        </form>
       </div>
-
-      {/* Checkout Modal */}
-      {showCheckout && bookingID !== null && (
-        <CheckoutModal
-          bookingID={bookingID}
-          amount={parseFloat(totalAmount)}
-          onClose={() => {
-            setShowCheckout(false);
-            onClose();
-          }}
-        />
-      )}
-
-    </>
+    </dialog>
   );
 };
 

@@ -31,7 +31,7 @@ export const bookingsAPI = createApi({
 
     tagTypes: ['Bookings'],
     endpoints: (builder) => ({
-        createBooking: builder.mutation<TBooking, Partial<TBooking>>({
+        createBooking: builder.mutation<{ booking: TBooking }, Partial<TBooking>>({
             query: (newBooking) => ({
                 url: '/api/booking',
                 method: 'POST',
@@ -59,7 +59,7 @@ export const bookingsAPI = createApi({
             invalidatesTags: ['Bookings'] // invalidates the cache for the Bookings tag when a booking is deleted
         }),
         // get booking by id
-        getBookingById: builder.query<{ data: TBooking[] }, number>({
+        getBookingById: builder.query<{ data: TBooking }, number>({
             query: (bookingID) => `/api/booking/${bookingID}`,
             providesTags: ['Bookings'] // this tells RTK Query that this endpoint provides the Bookings tag, so it can be used to invalidate the cache when a new booking is created
         }),

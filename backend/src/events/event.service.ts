@@ -27,7 +27,7 @@ export const createEvent = async (event: TIEvent) => {
 }
 
 //Update event details
-export const updateEvent =  async (id: number, event: TIEvent) => {
+export const updateEvent =  async (id: number, event: Partial<TIEvent>) => {
     const updated = await db
     .update(EventsTable)
     .set(event)

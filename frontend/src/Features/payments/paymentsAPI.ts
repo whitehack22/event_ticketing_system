@@ -7,7 +7,7 @@ export type TPayment = {
     paymentID: number;
     bookingID: number;
     userID: number;
-    amount: string;
+    amount: number;
     paymentStatus:string;
     paymentDate: string;
     paymentMethod: string;

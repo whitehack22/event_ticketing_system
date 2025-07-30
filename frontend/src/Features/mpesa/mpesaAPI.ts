@@ -1,17 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MpesaDomain } from "../../utils/APIDomain";
+import { ApiDomain } from "../../utils/APIDomain";
 import type { RootState } from "../../app/store";
 
 export type TMpesa = {
     phone: string;
     amount: number;
-    bookingID: number;
-    paymentStatus:string;
 }
+export type TStatus = {
+  paymentStatus:string;
+}
+
 export const mpesaAPI = createApi({
   reducerPath: "mpesaAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: MpesaDomain,
+    baseUrl: ApiDomain,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.token;
       if (token) {
@@ -32,7 +34,7 @@ export const mpesaAPI = createApi({
       invalidatesTags: ['Mpesa'],
     }),
 
-    getPaymentStatus: builder.query<{ data: TMpesa[] }, number>({
+    getPaymentStatus: builder.query<{ data: TStatus[] }, number>({
       query: (bookingID) => `/api/payments/booking/${bookingID}`,
       providesTags: ['Mpesa'],
     }),

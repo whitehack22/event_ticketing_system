@@ -1,0 +1,1 @@
+ALTER TABLE "payments" ALTER COLUMN "payment_status" SET DEFAULT 'Completed';

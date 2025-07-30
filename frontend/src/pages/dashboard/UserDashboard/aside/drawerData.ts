@@ -23,13 +23,19 @@ export const userDrawerData: DrawerData[] = [
         link: "events"
     },
     {
+        id: "payments",
+        name: "Payments",
+        icon: MdOutlinePayment,
+        link: "payment/:bookingID"
+    },
+    {
         id: "receipt",
         name: "Payment Receipt",
         icon: FaReceipt,
         link: "payment/receipt/:bookingID"
     },
     {
-        id: "payments",
+        id: "paymentsHistory",
         name: "Payment History",
         icon: MdOutlinePayment,
         link: "payments"
