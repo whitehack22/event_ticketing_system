@@ -68,6 +68,7 @@ function Login () {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     <input
+                        data-testid="login-email"
                         type="email"
                         {...register('email')}
                         placeholder="Email"
@@ -79,6 +80,7 @@ function Login () {
                     )}
 
                     <input
+                        data-testid="login-password"
                         type="password"
                         {...register('password')}
                         placeholder="Password"

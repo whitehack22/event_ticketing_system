@@ -68,6 +68,7 @@ function Register () {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     <input
+                        data-testid="register-firstName"
                         type="text"
                         {...register('firstName')}
                         placeholder="First Name"
@@ -79,6 +80,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-lastName"
                         type="text"
                         {...register('lastName')}
                         placeholder="Last Name"
@@ -90,6 +92,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-email"
                         type="email"
                         {...register('email')}
                         placeholder="Email"
@@ -101,6 +104,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-contactPhone"
                         type="text"
                         {...register('contactPhone')}
                         placeholder="Phone Number"
@@ -112,6 +116,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-address"
                         type="text"
                         {...register('address')}
                         placeholder="Address"
@@ -123,6 +128,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-password"
                         type="password"
                         {...register('password')}
                         placeholder="Password"
@@ -134,6 +140,7 @@ function Register () {
                     )}
 
                     <input
+                        data-testid="register-confirmPassword"
                         type="password"
                         {...register('confirmPassword')}
                         placeholder="Confirm Password"
