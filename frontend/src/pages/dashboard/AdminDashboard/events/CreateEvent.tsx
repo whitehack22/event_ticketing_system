@@ -84,13 +84,14 @@ const CreateEvent = () => {
       <div className="modal-box bg-gray-600 text-white max-w-xl">
         <h3 className="font-bold text-lg mb-4">Create New Event</h3>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <input {...register("title")} placeholder="Title" className="input w-full" />
+          <input data-testid="create-title" {...register("title")} placeholder="Title" className="input w-full" />
           {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
-          <textarea {...register("description")} placeholder="Description" className="textarea w-full" />
+          <textarea data-testid="create-description" {...register("description")} placeholder="Description" className="textarea w-full" />
           {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
           <select
+            data-testid="create-category"
             {...register("category")}
             className="select select-bordered w-full text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           >
@@ -108,13 +109,13 @@ const CreateEvent = () => {
           </select>
 
           {errors.category && <p className="text-red-500">{errors.category.message}</p>}
-          <input type="date" {...register("eventDate")} className="input w-full" />
-          <input type="time" {...register("startTime")} className="input w-full" />
-          <input type="time" {...register("endTime")} className="input w-full" />
-          <input {...register("ticketPrice")} placeholder="Ticket Price" className="input w-full" />
-          <input type="number" {...register("totalTickets")} placeholder="Total Tickets" className="input w-full" />
-          <input type="number" {...register("availableTickets")} placeholder="Available Tickets" className="input w-full" />
-          <input type="number" {...register("venueID")} placeholder="Venue ID" className="input w-full" />
+          <input type="date" data-testid="create-eventDate" {...register("eventDate")} className="input w-full" />
+          <input type="time" data-testid="create-startTime" {...register("startTime")} className="input w-full" />
+          <input type="time" data-testid="create-endTime" {...register("endTime")} className="input w-full" />
+          <input data-testid="create-ticketPrice" {...register("ticketPrice")} placeholder="Ticket Price" className="input w-full" />
+          <input type="number" data-testid="create-totalTickets" {...register("totalTickets")} placeholder="Total Tickets" className="input w-full" />
+          <input type="number" data-testid="create-availableTickets" {...register("availableTickets")} placeholder="Available Tickets" className="input w-full" />
+          <input type="number" data-testid="create-venueID" {...register("venueID")} placeholder="Venue ID" className="input w-full" />
           <div className="form-control">
                         <label className="label cursor-pointer">
                             <span className="label-text mr-4 text-white">Status</span>
@@ -147,13 +148,13 @@ const CreateEvent = () => {
 
           <div>
             <label className="block mb-1">Upload Event Image</label>
-            <input type="file" onChange={handleImageUpload} className="file-input file-input-bordered w-full" />
+            <input data-testid="create-image-url-hidden" type="file" onChange={handleImageUpload} className="file-input file-input-bordered w-full" />
             {imagePreview && <img src={imagePreview} alt="Preview" className="w-24 h-24 rounded-full object-cover mx-auto mb-2" />}
             {errors.image_url && <p className="text-red-500">{errors.image_url.message}</p>}
           </div>
 
           <div className="modal-action">
-            <button type="submit" className="btn btn-primary"disabled={isLoading || !imagePreview}>
+            <button type="submit" data-testid="create-submit-button" className="btn btn-primary"disabled={isLoading || !imagePreview}>
               {isLoading ? "Creating..." : "Create"}
             </button>
             <button

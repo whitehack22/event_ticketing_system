@@ -1,37 +1,61 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('getDataTest', (dataTestSelector) => {
+    return cy.get(`[data-testid="${dataTestSelector}"]`)
+})
+
+
+//login Admin user
+Cypress.Commands.add('loginAsAdmin', (email = 'githaigaraizzy@gmail.com', password = 'password123') => {
+    cy.visit('/login')
+    cy.getDataTest('login-email').type(email)
+    cy.getDataTest('login-password').type(password)
+    cy.getDataTest('login-submit-button').click()
+    cy.url().should('include', 'admin/dashboard/events')
+    
+
+})
+
+//login as User
+Cypress.Commands.add('loginAsUser', (email = 'mugoryan2@gmail.com', password = 'password123') => {
+    cy.visit('/login')
+    cy.getDataTest('login-email').type(email)
+    cy.getDataTest('login-password').type(password)
+    cy.getDataTest('login-submit-button').click()
+    cy.url().should('include', 'user/dashboard/events')
+    
+
+})
+
+
+
+/* eslint-disable @typescript-eslint/no-namespace */
+export { } // means this file is a module, so we can augment the Cypress namespace
+declare global { // adding new types to the global scope.
+    namespace Cypress { //adding to the Cypress types
+        interface Chainable { //means we are extending the Cypress namespace with our own custom commands
+            getDataTest(value: string): Chainable<JQuery<HTMLElement>>;
+            loginAsAdmin(email: string, password: string): Chainable<void>;
+            loginAsUser(email: string, password: string): Chainable<void>;
+        }
+    }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

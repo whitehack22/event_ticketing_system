@@ -19,7 +19,8 @@ const AdminDashboard = () => {
 
       {/* Top bar */}
       <div className="flex px-6 py-4 bg-gradient-to-b from-gray-800 to-gray-900 text-white items-center shadow">
-        <button 
+        <button
+          data-testid="drawer-toggle"
           className="mr-4 text-gray-300 hover:text-white text-2xl"
           onClick={handleDrawerToggle}
         >
@@ -34,6 +35,7 @@ const AdminDashboard = () => {
       <div className="flex flex-1 transition-all duration-300 ease-in-out">
         {/* Drawer */}
         <aside
+          data-testid="admin-drawer"
           className={`bg-gray-900 text-white h-full transition-all duration-300 ease-in-out ${
             isDrawerExpanded ? "w-64" : "w-16"
           }`}
@@ -42,7 +44,7 @@ const AdminDashboard = () => {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 bg-gray-50 p-6 overflow-auto shadow-inner transition-all duration-300">
+        <main data-testid="dashboard-content" className="flex-1 bg-gray-50 p-6 overflow-auto shadow-inner transition-all duration-300">
           <Outlet />
         </main>
       </div>

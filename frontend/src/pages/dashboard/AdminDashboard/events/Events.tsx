@@ -26,6 +26,7 @@ const Events = () => {
       {/* Create Event Button */}
       <div className="flex justify-end mb-4">
         <button
+          data-testid="open-create-event-modal"
           className="btn bg-gray-700 text-white hover:bg-gray-800"
           onClick={() => (document.getElementById("my_modal_5") as HTMLDialogElement)?.showModal()}
         >
@@ -140,6 +141,7 @@ const Events = () => {
                 </td>
                   <td className="flex gap-2">
                     <button
+                      data-testid="edit-event-button"
                       className="btn btn-sm btn-primary mr-4 text-blue-500"
                       onClick={() => handleEdit(event)}
                     >

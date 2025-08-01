@@ -123,13 +123,14 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
       <div className="modal-box bg-gray-600 text-white w-full max-w-xs sm:max-w-lg mx-auto rounded-lg">
         <h3 className="font-bold text-lg mb-4">Update Event</h3>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <input {...register("title")} placeholder="Title" className="input w-full" />
+          <input data-testid="update-title" {...register("title")} placeholder="Title" className="input w-full" />
           {errors.title && <span className="text-sm text-red-700">{errors.title.message}</span>}
 
-          <input {...register("description")} placeholder="Description" className="textarea w-full" />
+          <input data-testid="update-description" {...register("description")} placeholder="Description" className="textarea w-full" />
           {errors.description && <span className="text-sm text-red-700">{errors.description.message}</span>}
 
           <select
+            data-testid="update-category"
             {...register("category")}
             className="select select-bordered w-full text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           >
@@ -147,25 +148,25 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
           </select>
           {errors.category && <p className="text-red-500">{errors.category.message}</p>}
 
-          <input type="date" {...register("eventDate")} className="input w-full" />
+          <input data-testid="update-eventDate" type="date" {...register("eventDate")} className="input w-full" />
           {errors.eventDate && <span className="text-sm text-red-700">{errors.eventDate.message}</span>}
 
-          <input type="time" {...register("startTime")} className="input w-full" />
+          <input data-testid="update-startTime" type="time" {...register("startTime")} className="input w-full" />
           {errors.startTime && <span className="text-sm text-red-700">{errors.startTime.message}</span>}
 
-          <input type="time" {...register("endTime")} className="input w-full" />
+          <input data-testid="update-endTime" type="time" {...register("endTime")} className="input w-full" />
           {errors.endTime && <span className="text-sm text-red-700">{errors.endTime.message}</span>}
 
-          <input {...register("ticketPrice")} placeholder="Ticket Price" className="input w-full" />
+          <input data-testid="update-ticketPrice" {...register("ticketPrice")} placeholder="Ticket Price" className="input w-full" />
           {errors.ticketPrice && <span className="text-sm text-red-700">{errors.ticketPrice.message}</span>}
 
-          <input type="number" {...register("totalTickets")} placeholder="Total Tickets" className="input w-full" />
+          <input data-testid="update-totalTickets" type="number" {...register("totalTickets")} placeholder="Total Tickets" className="input w-full" />
           {errors.totalTickets && <span className="text-sm text-red-700">{errors.totalTickets.message}</span>}
 
-          <input type="number" {...register("availableTickets")} placeholder="Available Tickets" className="input w-full" />
+          <input data-testid="update-availableTickets" type="number" {...register("availableTickets")} placeholder="Available Tickets" className="input w-full" />
           {errors.availableTickets && <span className="text-sm text-red-700">{errors.availableTickets.message}</span>}
 
-          <input type="number" {...register("venueID")} placeholder="Venue ID" className="input w-full" />
+          <input data-testid="update-venueID" type="number" {...register("venueID")} placeholder="Venue ID" className="input w-full" />
           {errors.venueID && <span className="text-sm text-red-700">{errors.venueID.message}</span>}
 
           <div className="form-control">
@@ -202,7 +203,7 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
           {errors.updatedAt && <span className="text-sm text-red-700">{errors.updatedAt.message}</span>} */}
 
           <div className="flex flex-col gap-2">
-          <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="file-input file-input-bordered file-input-primary w-full" />
+          <input data-testid="update-image" type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="file-input file-input-bordered file-input-primary w-full" />
           {
                             imageFile && (
                                 <img
@@ -215,7 +216,7 @@ const UpdateEvent = ({ event }: UpdateEventProps) => {
           </div>
 
           <div className="modal-action">
-            <button type="submit" className="btn btn-primary" disabled={isLoading || uploading}>
+            <button data-testid="update-submit-button" type="submit" className="btn btn-primary" disabled={isLoading || uploading}>
               {isLoading || uploading ? <span className="loading loading-spinner text-primary" /> : "Update"}
             </button>
             <button

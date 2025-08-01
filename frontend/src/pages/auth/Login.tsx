@@ -90,7 +90,7 @@ function Login () {
                         <span className="text-sm text-red-700">{errors.password.message}</span>
                     )}
 
-                    <button type="submit" className="btn btn-primary w-full mt-4 hover:bg-black hover:text-white" disabled={ isLoading }>
+                    <button type="submit" data-testid="login-submit-button" className="btn btn-primary w-full mt-4 hover:bg-black hover:text-white" disabled={ isLoading }>
                         {isLoading ? (
                             <>
                                 <span className="loading loading-spinner text-primary" /> Logging in...
